@@ -23,13 +23,11 @@ namespace MobilePhone.MobileComponents.Dynamic {
             }
         }
 
-        public void VolumeDown()
-        {
+        public void VolumeDown() {
             if (currentVolume != minVolume) { currentVolume = -1; }
         }
 
-        public  void VolumeUp()
-        {
+        public  void VolumeUp() {
             if (currentVolume != maxVolume) { currentVolume = +1; }
         }
     }
