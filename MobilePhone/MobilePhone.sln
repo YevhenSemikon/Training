@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobilePhone", "ClassLibrary1\MobilePhone.csproj", "{5A762813-CEE6-4411-AF39-1C8D8A242133}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobilePhone", "MobilePhoneLibrary\MobilePhone.csproj", "{5A762813-CEE6-4411-AF39-1C8D8A242133}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobilePhoneProgram", "ConsoleApplication2\MobilePhoneProgram.csproj", "{0C1D0769-C42B-4384-A853-6ACD02420E0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobilePhoneProgram", "MobilePhoneProgram\MobilePhoneProgram.csproj", "{0C1D0769-C42B-4384-A853-6ACD02420E0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

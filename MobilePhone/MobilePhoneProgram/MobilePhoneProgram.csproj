@@ -50,7 +50,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\MobilePhone.csproj">
+    <ProjectReference Include="..\MobilePhoneLibrary\MobilePhone.csproj">
       <Project>{5a762813-cee6-4411-af39-1c8d8a242133}</Project>
       <Name>MobilePhone</Name>
     </ProjectReference>
