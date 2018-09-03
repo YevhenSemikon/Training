@@ -48,6 +48,8 @@
     <Compile Include="MobileComponents\Speaker\MonoSpeaker.cs" />
     <Compile Include="MobileComponents\Speaker\StereoSpeaker.cs" />
     <Compile Include="MobileComponents\Microphone\MicrophoneBase.cs" />
+    <Compile Include="MobileComponents\Microphone\DynamicMicrophone.cs" /> 
+    <Compile Include="MobileComponents\Microphone\CondenserMicrophone.cs" />
     <Compile Include="MobileComponents\Screen\ColorfulScreen.cs" />
     <Compile Include="MobileComponents\Screen\IScreenImage.cs" />
     <Compile Include="MobileComponents\Screen\MonochromeScreen.cs" />
