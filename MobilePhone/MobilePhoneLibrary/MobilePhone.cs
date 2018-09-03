@@ -1,5 +1,5 @@
 ﻿using MobilePhone.MobileComponents.Battery;
-using MobilePhone.MobileComponents.Dynamic;
+using MobilePhone.MobileComponents.Speaker;
 using MobilePhone.MobileComponents.Microphone;
 using MobilePhone.MobileComponents.Screen;
 using MobilePhone.MobileComponents.SimCard;
@@ -14,7 +14,7 @@ namespace MobilePhone {
         public abstract ScreenBase Screen { get; }
         public abstract MicrophoneBase Microphone { get; }
         public abstract BatteryBase Battery { get; }
-        public abstract DynamicBase Dynamic { get; }
+        public abstract SpeakerBase Speaker { get; }
         public abstract SimCardBase SimCard { get; }
         private void Show(IScreenImage screenImage) { Screen.Show(screenImage); }
         public string GetDescription(){
@@ -22,7 +22,7 @@ namespace MobilePhone {
             descriptionBuilder.AppendLine($"Screen Type: {Screen.ToString()}");
             descriptionBuilder.AppendLine($"Microphone Type: {Microphone.ToString()}");
             descriptionBuilder.AppendLine($"Battery Type: {Battery.ToString()}");
-            descriptionBuilder.AppendLine($"Dynamic Type: {Dynamic.ToString()}");
+            descriptionBuilder.AppendLine($"Speaker Type: {Speaker.ToString()}");
             descriptionBuilder.AppendLine($"SimCard Type: {SimCard.ToString()}");
             return descriptionBuilder.ToString();
         }

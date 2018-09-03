@@ -44,9 +44,9 @@
     <Compile Include="MobileComponents\Battery\LiIonBattery.cs" />
     <Compile Include="MobileComponents\Battery\LiPolBattery.cs" />
     <Compile Include="MobileComponents\Battery\NiCdBattery.cs" />
-    <Compile Include="MobileComponents\Dynamic\DynamicBase.cs" />
-    <Compile Include="MobileComponents\Dynamic\MonoDynamic.cs" />
-    <Compile Include="MobileComponents\Dynamic\StereoDynamic.cs" />
+    <Compile Include="MobileComponents\Speaker\SpeakerBase.cs" />
+    <Compile Include="MobileComponents\Speaker\MonoSpeaker.cs" />
+    <Compile Include="MobileComponents\Speaker\StereoSpeaker.cs" />
     <Compile Include="MobileComponents\Microphone\AppleMicrophone.cs" />
     <Compile Include="MobileComponents\Microphone\MicrophoneBase.cs" />
     <Compile Include="MobileComponents\Microphone\NokiaMicrophone.cs" />
