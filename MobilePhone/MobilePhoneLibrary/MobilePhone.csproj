@@ -48,7 +48,7 @@
     <Compile Include="MobileComponents\Speaker\MonoSpeaker.cs" />
     <Compile Include="MobileComponents\Speaker\StereoSpeaker.cs" />
     <Compile Include="MobileComponents\Microphone\MicrophoneBase.cs" />
-    <Compile Include="MobileComponents\Microphone\DynamicMicrophone.cs" /> 
+    <Compile Include="MobileComponents\Microphone\DynamicMicrophone.cs" />
     <Compile Include="MobileComponents\Microphone\CondenserMicrophone.cs" />
     <Compile Include="MobileComponents\Screen\ColorfulScreen.cs" />
     <Compile Include="MobileComponents\Screen\IScreenImage.cs" />
@@ -57,8 +57,8 @@
     <Compile Include="MobileComponents\Screen\RetinaScreen.cs" />
     <Compile Include="MobileComponents\Screen\ScreenBase.cs" />
     <Compile Include="MobileComponents\Screen\BaseImage.cs" />
-    <Compile Include="MobileComponents\SimCard\SimCard3g.cs" />
-    <Compile Include="MobileComponents\SimCard\SimCard4g.cs" />
+    <Compile Include="MobileComponents\SimCard\VodafoneSimCard.cs" />
+    <Compile Include="MobileComponents\SimCard\LifeSimCard.cs" />
     <Compile Include="MobileComponents\SimCard\SimCardBase.cs" />
     <Compile Include="MobilePhone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
