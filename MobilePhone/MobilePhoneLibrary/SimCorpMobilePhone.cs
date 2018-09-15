@@ -11,6 +11,14 @@ using MobilePhone.MobileComponents.SimCard;
 
 namespace MobilePhone {
     public class SimCorpMobilePhone : MobilePhone {
+        public string mobilePhoneName;
+        public SimCorpMobilePhone() {
+            Screen.screenDiagonal = 5.5;
+            Microphone.sensitivity = 70;
+            Battery.capacity = 1000;
+            Speaker.power = 2;
+            SimCard.formFactor = "MicroSim";
+        }
         public override ScreenBase Screen { get { return vOLEDScreen; } }
         public override MicrophoneBase Microphone { get { return vDynamicMicrophone; } }
         public override BatteryBase Battery { get { return vLiPolBattery; } }
@@ -20,6 +28,6 @@ namespace MobilePhone {
         private readonly DynamicMicrophone vDynamicMicrophone = new DynamicMicrophone();
         private readonly LiPolBattery vLiPolBattery = new LiPolBattery();
         private readonly StereoSpeaker vStereoSpeaker = new StereoSpeaker(30);
-        private readonly LifeSimCard vSimCard = new LifeSimCard ();
+        private readonly LifeSimCard vSimCard = new LifeSimCard();
     }
 }
