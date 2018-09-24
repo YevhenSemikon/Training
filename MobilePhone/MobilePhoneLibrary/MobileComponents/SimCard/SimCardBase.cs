@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MobilePhone.MobileComponents.SimCard {
-    public abstract class SimCardBase { 
+    public abstract class SimCardBase {
         public SimCardBase() {
             networkStandard = "2g";
-            formFactor = "MiniSim";        
+            formFactor = "MiniSim";
         }
         public abstract string formFactor { get; set; }
         public abstract string networkStandard { get; set; }

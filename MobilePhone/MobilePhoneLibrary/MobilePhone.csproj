@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,10 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Message.cs" />
+    <Compile Include="MobileComponents\AudioJack\iPhoneHeadset.cs" />
+    <Compile Include="MobileComponents\AudioJack\IPlayBack.cs" />
+    <Compile Include="MobileComponents\AudioJack\PhoneSpeaker.cs" />
+    <Compile Include="MobileComponents\AudioJack\SamsungHeadset.cs" />
+    <Compile Include="MobileComponents\AudioJack\UnofficialiPhoneHeadset.cs" />
     <Compile Include="MobileComponents\Battery\BatteryBase.cs" />
     <Compile Include="MobileComponents\Battery\LiIonBattery.cs" />
     <Compile Include="MobileComponents\Battery\LiPolBattery.cs" />
     <Compile Include="MobileComponents\Battery\NiCdBattery.cs" />
+    <Compile Include="MobileComponents\Charger\ICharge.cs" />
+    <Compile Include="MobileComponents\Charger\iPhoneCharger.cs" />
+    <Compile Include="MobileComponents\Charger\SamsungCharger.cs" />
+    <Compile Include="MobileComponents\Charger\UnofficialiPhoneCharger.cs" />
+    <Compile Include="MobileComponents\IOutput.cs" />
     <Compile Include="MobileComponents\Speaker\SpeakerBase.cs" />
     <Compile Include="MobileComponents\Speaker\MonoSpeaker.cs" />
     <Compile Include="MobileComponents\Speaker\StereoSpeaker.cs" />
@@ -63,6 +75,8 @@
     <Compile Include="MobilePhone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimCorpMobilePhone.cs" />
+    <Compile Include="SMSProvider.cs" />
+    <Compile Include="Storage.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

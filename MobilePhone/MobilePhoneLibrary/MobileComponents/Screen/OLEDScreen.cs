@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MobilePhone.MobileComponents.Screen {
     public class OLEDScreen : ScreenBase {
         private new int PPICoef = 60;
-        public OLEDScreen():base() { colorDepth = 12; }
+        public OLEDScreen() : base() { colorDepth = 12; }
         public int colorDepth { get; set; }
         public override double screenDiagonal { get; set; }
         public override int screenPPI { get { return getPPi(PPICoef); } }

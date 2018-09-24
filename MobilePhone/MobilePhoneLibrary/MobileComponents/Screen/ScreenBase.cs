@@ -8,7 +8,7 @@ namespace MobilePhone.MobileComponents.Screen {
     public abstract class ScreenBase {
         protected int PPICoef = 50;
         public ScreenBase() { screenDiagonal = 3; }
-        public abstract double screenDiagonal {get; set;}
+        public abstract double screenDiagonal { get; set; }
         public abstract int screenPPI { get; }
         protected int getPPi(int PPICoef) {
             return Convert.ToInt32(screenDiagonal * PPICoef);
