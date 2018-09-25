@@ -8,6 +8,7 @@ namespace MobilePhone.MobileComponents.Battery {
    public class LiPolBattery : BatteryBase {
         public LiPolBattery() : base() {}
         public override int capacity { get; set; }
+        public override int charge { get; set; }
         public override double minVoltage { get { return 3.7; } }
         public override double maxVoltage { get { return 4.2; } }
         public override int minWorkingTempreture { get { return -20; } }

@@ -9,7 +9,6 @@ using MobilePhone.MobileComponents.Charger;
 
 namespace MobilePhone {
     public abstract class MobilePhone {
-        internal SMSProvider SMSProvider { get; set; }
         public Storage Storage { get; set; }
         public IPlayback PlaybackComponent { get; set; }
         public ICharge ChargerComponent { get; set; }

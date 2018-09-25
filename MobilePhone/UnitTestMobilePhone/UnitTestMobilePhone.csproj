@@ -61,6 +61,10 @@
     <Compile Include="StorageTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MessageFormattingApp\MessageFiltering.csproj">
+      <Project>{06985417-93b3-4689-8338-44bc395e4ba4}</Project>
+      <Name>MessageFiltering</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MobilePhoneLibrary\MobilePhone.csproj">
       <Project>{5a762813-cee6-4411-af39-1c8d8a242133}</Project>
       <Name>MobilePhone</Name>

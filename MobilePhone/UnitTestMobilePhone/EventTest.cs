@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobilePhone;
+using MessageFormattingApp;
 
 namespace UnitTestMobilePhone {
    // public delegate 
@@ -16,8 +17,8 @@ namespace UnitTestMobilePhone {
         [TestMethod]
         public void EventMessageTest () {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();           
-            mobile.Storage.MessageAdd += CheckEventMessage;
-            mobile.AddSMSProvider(messageNumber: 1, pause: 0);
+            mobile.Storage.MessageAdd += CheckEventMessage;         
+            SMSProvider.CreateMessages(messagesNumber: 1, pause: 0,storage: mobile.Storage);
             var expectedEventMessage = "Message #0 received!";
             Assert.AreEqual(expectedEventMessage, actualEventMessage[0].Text);
         }

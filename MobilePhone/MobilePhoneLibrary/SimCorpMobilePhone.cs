@@ -5,8 +5,7 @@ using MobilePhone.MobileComponents.Speaker;
 using MobilePhone.MobileComponents.SimCard;
 
 namespace MobilePhone {
-    public class SimCorpMobilePhone : MobilePhone {
-        public delegate void AddSMSProviderDelegate(int messageNumber, int pause);
+    public class SimCorpMobilePhone : MobilePhone {        
         public SimCorpMobilePhone() {
             Storage = new Storage();
             Screen.screenDiagonal = 5.5;
@@ -26,9 +25,5 @@ namespace MobilePhone {
         private readonly LiPolBattery vLiPolBattery = new LiPolBattery();
         private readonly StereoSpeaker vStereoSpeaker = new StereoSpeaker(30);
         private readonly LifeSimCard vSimCard = new LifeSimCard();
-
-        public void AddSMSProvider(int messageNumber, int pause) {
-            SMSProvider = new SMSProvider(messageNumber, pause, this.Storage);
-        }
     }
 }

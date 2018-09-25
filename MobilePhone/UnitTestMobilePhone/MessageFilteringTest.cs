@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobilePhone;
+using MessageFormattingApp;
 
 namespace UnitTestMobilePhone
 {
@@ -11,7 +12,7 @@ namespace UnitTestMobilePhone
         public void FilterByUser()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.AddSMSProvider(messageNumber: 3, pause: 0);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
             string selectedUser = "+380971234567";
             var messageList=mobile.Storage.FilterMessageByUser(mobile.Storage.MessagesList, selectedUser);
             int expectedCount = 3;
@@ -22,7 +23,7 @@ namespace UnitTestMobilePhone
         public void FilterByText()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.AddSMSProvider(messageNumber: 3, pause: 0);            
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);            
             string selectedText = "Message #1 received!";
             var messageList = mobile.Storage.FilterMessageByText(mobile.Storage.MessagesList, selectedText);
             int expectedCount = 1;
@@ -33,7 +34,7 @@ namespace UnitTestMobilePhone
         public void FilterByDatePositive()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.AddSMSProvider(messageNumber: 1, pause: 0);
+            SMSProvider.CreateMessages(messagesNumber: 1, pause: 0,storage: mobile.Storage);
             var startDate = DateTime.Now.AddMinutes(-1);
             var endDate = DateTime.Now.AddHours(1);
             var messageList = mobile.Storage.FilterMessageByDate(mobile.Storage.MessagesList, startDate,endDate);
@@ -45,7 +46,7 @@ namespace UnitTestMobilePhone
         public void FilterByDateNegative()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.AddSMSProvider(messageNumber : 1, pause : 0);
+            SMSProvider.CreateMessages(messagesNumber: 1, pause: 0,storage: mobile.Storage);
             var startDate = DateTime.Now.AddDays(-1);
             var endDate = DateTime.Now.AddHours(-1);
             var messageList = mobile.Storage.FilterMessageByDate(mobile.Storage.MessagesList,startDate,endDate);
@@ -58,7 +59,7 @@ namespace UnitTestMobilePhone
         public void FilterByDateOrUser()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.AddSMSProvider(messageNumber: 3, pause: 0);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
             var startDate = DateTime.Now.AddDays(-1);
             var endDate = DateTime.Now.AddHours(-1);
             string selectedUser = "+380971234567";
@@ -75,7 +76,7 @@ namespace UnitTestMobilePhone
         public void FilterByUserOrDate()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.AddSMSProvider(messageNumber: 3, pause: 0);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
             var startDate = DateTime.Now.AddMinutes(-1);
             var endDate = DateTime.Now.AddHours(1);
             string selectedUser = "+380971234567";
@@ -92,7 +93,7 @@ namespace UnitTestMobilePhone
         public void FilterByDateOrText()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.AddSMSProvider(messageNumber: 3, pause: 0);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
             var startDate = DateTime.Now.AddDays(-1);
             var endDate = DateTime.Now.AddHours(-1);
             string selectedUser = "";
@@ -109,7 +110,7 @@ namespace UnitTestMobilePhone
         public void FilterByTextOrDate()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.AddSMSProvider(messageNumber: 3, pause: 0);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
             var startDate = DateTime.Now.AddMinutes(-1);
             var endDate = DateTime.Now.AddHours(1);
             string selectedUser = "";
@@ -126,7 +127,7 @@ namespace UnitTestMobilePhone
         public void FilterByDateOrTextorUser()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.AddSMSProvider(messageNumber: 3, pause: 0);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
             var startDate = DateTime.Now.AddDays(-1);
             var endDate = DateTime.Now.AddHours(-1);
             string selectedUser = "+380971234567";
@@ -143,7 +144,7 @@ namespace UnitTestMobilePhone
         public void FilterByDateAndText()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.AddSMSProvider(messageNumber: 3, pause: 0);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
             var startDate = DateTime.Now.AddMinutes(-1);
             var endDate = DateTime.Now.AddHours(1);
             string selectedUser = "";
@@ -160,7 +161,7 @@ namespace UnitTestMobilePhone
         public void FilterByDateAndUser()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.AddSMSProvider(messageNumber: 3, pause: 0);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
             var startDate = DateTime.Now.AddMinutes(-1);
             var endDate = DateTime.Now.AddHours(1);
             string selectedUser = "+380971234567";
@@ -177,7 +178,7 @@ namespace UnitTestMobilePhone
         public void FilterByDateAndUserAndText()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.AddSMSProvider(messageNumber: 3, pause: 0);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
             var startDate = DateTime.Now.AddMinutes(-1);
             var endDate = DateTime.Now.AddHours(1);
             string selectedUser = "+380971234567";

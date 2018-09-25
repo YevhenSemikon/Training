@@ -54,6 +54,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SMSProvider.cs" />
+    <Compile Include="SMSProviderThread.cs" />
     <EmbeddedResource Include="MessageFiltering.resx">
       <DependentUpon>MessageFiltering.cs</DependentUpon>
     </EmbeddedResource>

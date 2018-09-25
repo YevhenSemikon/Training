@@ -8,6 +8,7 @@ namespace MobilePhone.MobileComponents.Battery {
     public class NiCdBattery : BatteryBase {
         public NiCdBattery() : base() {}
         public override int capacity { get; set; }
+        public override int charge { get; set; }
         public override double minVoltage { get { return 1.2; } }
         public override double maxVoltage { get { return 1.35; } }
         public override int minWorkingTempreture { get { return -50; } }
