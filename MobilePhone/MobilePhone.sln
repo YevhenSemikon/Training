@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobilePhone", "MobilePhoneLibrary\MobilePhone.csproj", "{5A762813-CEE6-4411-AF39-1C8D8A242133}"
 EndProject
@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestMobilePhone", "Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobilePhoneApp", "MobilePhoneApp\MobilePhoneApp.csproj", "{ED9E0243-F8BE-4137-874A-0655A5B6C013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageFormatting", "MessageFormattingApp\MessageFormatting.csproj", "{06985417-93B3-4689-8338-44BC395E4BA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageFiltering", "MessageFormattingApp\MessageFiltering.csproj", "{06985417-93B3-4689-8338-44BC395E4BA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,5 +47,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2C208AA7-FB5F-4771-BD7B-7ACAE32619AC} = {694C64AF-1E39-49B1-A18F-35F62406E8FD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3396F63D-D4E9-4CA7-99DC-3525A2F0EC7D}
 	EndGlobalSection
 EndGlobal

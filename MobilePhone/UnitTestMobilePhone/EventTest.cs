@@ -11,18 +11,17 @@ namespace UnitTestMobilePhone {
     /// </summary>
     [TestClass]
     public class EventTest {
-        string actualEventMessage;
+        List<Message> actualEventMessage;
 
         [TestMethod]
         public void EventMessageTest () {
-            SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-           // mobile.SMSProvider.SMSReceived += CheckEventMessage;
-            //SMSProvider.SMSStartSendingDelegate startDel = mobile.SMSProvider.ReceiveMessage;
-            //startDel(1);
+            SimCorpMobilePhone mobile = new SimCorpMobilePhone();           
+            mobile.Storage.MessageAdd += CheckEventMessage;
+            mobile.AddSMSProvider(messageNumber: 1, pause: 0);
             var expectedEventMessage = "Message #0 received!";
-            Assert.AreEqual(expectedEventMessage, actualEventMessage);
+            Assert.AreEqual(expectedEventMessage, actualEventMessage[0].Text);
         }
-        private void CheckEventMessage(string message) {
+        private void CheckEventMessage(List<Message> message) {
             actualEventMessage=message;
         }  
     }

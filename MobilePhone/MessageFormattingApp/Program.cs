@@ -14,7 +14,7 @@ namespace MessageFormattingApp {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MessageFormatting());
+            Application.Run(new MessageFiltering());
         }
     }
 }

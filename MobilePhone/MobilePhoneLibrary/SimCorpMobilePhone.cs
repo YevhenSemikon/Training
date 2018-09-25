@@ -6,9 +6,9 @@ using MobilePhone.MobileComponents.SimCard;
 
 namespace MobilePhone {
     public class SimCorpMobilePhone : MobilePhone {
-        public delegate void AddSMSProviderDelegate();
-        public SimCorpMobilePhone() {            
-            Storage = new Storage();          
+        public delegate void AddSMSProviderDelegate(int messageNumber, int pause);
+        public SimCorpMobilePhone() {
+            Storage = new Storage();
             Screen.screenDiagonal = 5.5;
             Microphone.sensitivity = 70;
             Battery.capacity = 1000;
@@ -19,7 +19,7 @@ namespace MobilePhone {
         public override MicrophoneBase Microphone { get { return vDynamicMicrophone; } }
         public override BatteryBase Battery { get { return vLiPolBattery; } }
         public override SpeakerBase Speaker { get { return vStereoSpeaker; } }
-        public override SimCardBase SimCard { get { return vSimCard; } }        
+        public override SimCardBase SimCard { get { return vSimCard; } }
 
         private readonly OLEDScreen vOLEDScreen = new OLEDScreen();
         private readonly DynamicMicrophone vDynamicMicrophone = new DynamicMicrophone();
@@ -27,9 +27,8 @@ namespace MobilePhone {
         private readonly StereoSpeaker vStereoSpeaker = new StereoSpeaker(30);
         private readonly LifeSimCard vSimCard = new LifeSimCard();
 
-        public void AddSMSProvider()
-        {
-            SMSProvider = new SMSProvider(this.Storage);
+        public void AddSMSProvider(int messageNumber, int pause) {
+            SMSProvider = new SMSProvider(messageNumber, pause, this.Storage);
         }
     }
 }

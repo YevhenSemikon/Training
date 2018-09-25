@@ -24,39 +24,47 @@ namespace MobilePhone {
         public List<Message> FilterMessage(IEnumerable<Message> messages,
                             string selectedUser, DateTime selectedStartDate,
                             DateTime selectedEndDate, string selectedText, bool ANDCondition) {
-            var filteredByUser = FilterMessageByUser(messages, selectedUser);
-            var filteredByText = FilterMessageByText(messages, selectedText);
-            var filteredByDate = FilterMessageByDate(messages, selectedStartDate, selectedEndDate);
-            return CreateFilteredList(filteredByUser, filteredByText, filteredByDate, ANDCondition);
-        }
-        private List<Message> CreateFilteredList(IEnumerable<Message> filteredByUser, IEnumerable<Message> filteredByText, IEnumerable<Message> filteredByDate, bool ANDCondition) {
-            IEnumerable<Message> filterNew;
-            if (ANDCondition) {
-                filterNew = filteredByUser.Intersect(filteredByText);
-                filterNew = filterNew.Intersect(filteredByDate);
+
+            //Add list of Filtered messages by date (constant condition)
+            List<List<Message>> messagesList = new List<List<Message>>(){
+            FilterMessageByDate(messages, selectedStartDate, selectedEndDate).ToList()
+            };
+            //Check if User condition specified
+            if (selectedUser != "None" && !string.IsNullOrEmpty(selectedUser)) {
+                messagesList.Add(FilterMessageByUser(messages, selectedUser).ToList());
             }
-            else {
-                filterNew = filteredByUser.Union(filteredByText);
-                filterNew = filterNew.Union(filteredByDate);
+            //Check if Text condition specified
+            if (!string.IsNullOrEmpty(selectedText)) {
+                messagesList.Add(FilterMessageByText(messages, selectedText).ToList());
             }
-            return filterNew.ToList();
+            return CreateFilteredList(messagesList, ANDCondition);
         }
-        private IEnumerable<Message> FilterMessageByDate(IEnumerable<Message> messages, DateTime selectedStartDate, DateTime selectedEndDate) {
-            return messages.Where(d => d.ReceivingTime >= selectedStartDate && d.ReceivingTime <= selectedEndDate);
+
+        private List<Message> CreateFilteredList(List<List<Message>> messagesList, bool ANDCondition) {
+            var filteredList = messagesList[0].AsEnumerable();
+            if (ANDCondition) { foreach (var messages in messagesList) { filteredList = filteredList.Intersect(messages); } }
+            else { foreach (var messages in messagesList) { filteredList = filteredList.Union(messages); } }
+            return filteredList.ToList();
         }
-        private IEnumerable<Message> FilterMessageByText(IEnumerable<Message> messages, string selectedText) {
-            if (string.IsNullOrEmpty(selectedText)) { return messages.Where(t => t.Text == null); }
-            else { return messages.Where(t => t.Text.Contains(selectedText)); }
+
+        public List<Message> FilterMessageByDate(IEnumerable<Message> messages, DateTime selectedStartDate, DateTime selectedEndDate) {
+            return messages.Where(d => d.ReceivingTime >= selectedStartDate && d.ReceivingTime <= selectedEndDate).ToList();
         }
-        private IEnumerable<Message> FilterMessageByUser(IEnumerable<Message> messages, string selectedUser) {
-            return messages.Where(u => u.User == selectedUser);
+
+        public List<Message> FilterMessageByText(IEnumerable<Message> messages, string selectedText) {
+            return messages.Where(t => t.Text.Contains(selectedText)).ToList();
         }
+
+        public List<Message> FilterMessageByUser(IEnumerable<Message> messages, string selectedUser) {
+            return messages.Where(u => u.User == selectedUser).ToList();
+        }
+
+        //Format incoming message
         public static string NoneFormat(string message) { return message; }
         public static string LowerFormat(string message) { return message.ToLower(); }
         public static string StartWithDate(string message) { return $"[{DateTime.Now}] {message}"; }
         public static string EndWithDate(string message) { return $"{message} [{DateTime.Now}]"; }
         public static string UpperFormat(string message) { return message.ToUpper(); }
-
 
     }
 }
