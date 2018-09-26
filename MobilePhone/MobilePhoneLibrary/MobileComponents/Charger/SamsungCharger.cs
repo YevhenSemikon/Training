@@ -11,10 +11,16 @@ namespace MobilePhone.MobileComponents.Charger {
             Output = output;
             Output.WriteLine($"{nameof(SamsungCharger)} selected");
         }
+
+        public double ChargerCoef { get; set; }
+
         public void Charge() {
             Output.WriteLine("Charging Mobile:");
             Output.WriteLine($"Charging by {nameof(SamsungCharger)}");
         }
+
+        public void Charge(MobilePhone mobile, bool turnOn) { mobile.Battery.ChargingBattery(mobile, turnOn); }
+
         public override string ToString() {
             return "SamsungCharger";
         }

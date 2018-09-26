@@ -35,5 +35,9 @@ namespace MobilePhone {
         public void Charge() {
             ChargerComponent.Charge();
         }
+        public void Charge(bool turnOn)
+        {
+            ChargerComponent.Charge(this, turnOn);
+        }
     }
 }

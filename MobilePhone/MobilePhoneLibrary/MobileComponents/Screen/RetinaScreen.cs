@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace MobilePhone.MobileComponents.Screen {
     public class RetinaScreen : ScreenBase {
         protected new int PPICoef = 80;
-        public RetinaScreen() : base() { colorDepth = 24; }
-        public int colorDepth { get; set; }
-        public override double screenDiagonal { get; set; }
-        public override int screenPPI { get { return getPPi(PPICoef); } }
+        public RetinaScreen() : base() { ColorDepth = 24; }
+        public int ColorDepth { get; set; }
+        public override double ScreenDiagonal { get; set; }
+        public override int ScreenPPI { get { return GetPPi(PPICoef); } }
         public override void Show(IScreenImage screenImage) {
-            Console.WriteLine("Super high quality image with height: " + screenImage.imageHeight + " and width: " + screenImage.imageWidth);
+            Console.WriteLine("Super high quality image with height: " + screenImage.ImageHeight + " and width: " + screenImage.ImageWidth);
         }
         public override string ToString() { return "Retina Screen"; }
     }

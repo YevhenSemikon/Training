@@ -7,28 +7,36 @@ using System.Threading.Tasks;
 
 namespace MobilePhone.MobileComponents.Battery {
     public abstract class BatteryBase {
-        public BatteryBase() { capacity = 800; charge = 15;
-            Thread messageGenerator = new Thread(DisCharging);
-            messageGenerator.Start();
+
+
+        public BatteryBase() {
+            Capacity = 800;
+            ChargeLevel = new ChargeLevel(30);
+            BatteryChargeCoef = 1;
+            BatteryDisChargeCoef = 1;
         }
-        public abstract int capacity { get; set; }
-        public abstract int charge { get; set; }
-        public abstract int minWorkingTempreture { get; }
-        public abstract int maxWorkingTempreture { get; }
-        public abstract double minVoltage { get; }
-        public abstract double maxVoltage { get; }
+        public bool Charge { get; private set; }
+        public abstract int Capacity { get; set; }
+        public ChargeLevel ChargeLevel { get; private set; }
+        public abstract double BatteryChargeCoef { get;set;}
+        public abstract double BatteryDisChargeCoef { get; set; }
+        public abstract int MinWorkingTempreture { get; }
+        public abstract int MaxWorkingTempreture { get; }
+        public abstract double MinVoltage { get; }
+        public abstract double MaxVoltage { get; }
 
-        public Thread Charging() {
-
-        }
-
-        public void DisCharging() {
-            while (charge>0) {
-                charge -= 1;
-                System.Threading.Thread.Sleep(100);
+        internal void ChargingBattery(MobilePhone mobile,bool turnOn)
+        {
+            if (turnOn)
+            {
+                Charge = true;
+                Thread ChargingThread = new Thread(ChargeLevel.DisCharging);
+                ChargingThread.Start();
             }
+            else
+            {
+                Charge = false;
+            }         
         }
-
-
     }
 }

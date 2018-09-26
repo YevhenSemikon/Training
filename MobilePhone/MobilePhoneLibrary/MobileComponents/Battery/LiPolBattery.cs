@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace MobilePhone.MobileComponents.Battery {
    public class LiPolBattery : BatteryBase {
-        public LiPolBattery() : base() {}
-        public override int capacity { get; set; }
-        public override int charge { get; set; }
-        public override double minVoltage { get { return 3.7; } }
-        public override double maxVoltage { get { return 4.2; } }
-        public override int minWorkingTempreture { get { return -20; } }
-        public override int maxWorkingTempreture { get { return +50; } }
-        public string batteryType { get { return "Li-Pol"; } }
+        public LiPolBattery() : base() {
+            BatteryChargeCoef = 0.8;
+            BatteryDisChargeCoef = 0.9;
+        }
+        public override int Capacity { get; set; }
+        public override double BatteryChargeCoef { get; set; }
+        public override double BatteryDisChargeCoef { get; set; }
+        public override double MinVoltage { get { return 3.7; } }
+        public override double MaxVoltage { get { return 4.2; } }
+        public override int MinWorkingTempreture { get { return -20; } }
+        public override int MaxWorkingTempreture { get { return +50; } }
+        public string BatteryType { get { return "Li-Pol"; } }
         public override string ToString() { return "Li-Pol Battery"; } 
     }
 }

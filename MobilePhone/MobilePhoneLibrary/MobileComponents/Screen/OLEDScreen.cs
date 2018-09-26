@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MobilePhone.MobileComponents.Screen {
     public class OLEDScreen : ScreenBase {
-        private new int PPICoef = 60;
-        public OLEDScreen() : base() { colorDepth = 12; }
-        public int colorDepth { get; set; }
-        public override double screenDiagonal { get; set; }
-        public override int screenPPI { get { return getPPi(PPICoef); } }
+        private new readonly int PPICoef = 60;
+        public OLEDScreen() : base() { ColorDepth = 12; }
+        public int ColorDepth { get; set; }
+        public override double ScreenDiagonal { get; set; }
+        public override int ScreenPPI { get { return GetPPi(PPICoef); } }
         public override void Show(IScreenImage screenImage) {
-            Console.WriteLine("High quality image with height: " + screenImage.imageHeight + " and width: " + screenImage.imageWidth);
+            Console.WriteLine("High quality image with height: " + screenImage.ImageHeight + " and width: " + screenImage.ImageWidth);
         }
         public override string ToString() { return "OLED Screen"; }
     }

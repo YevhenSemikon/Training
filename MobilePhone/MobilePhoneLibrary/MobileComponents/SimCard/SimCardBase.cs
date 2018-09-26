@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace MobilePhone.MobileComponents.SimCard {
     public abstract class SimCardBase {
         public SimCardBase() {
-            networkStandard = "2g";
-            formFactor = "MiniSim";
+            NetworkStandard = "2g";
+            FormFactor = "MiniSim";
         }
-        public abstract string formFactor { get; set; }
-        public abstract string networkStandard { get; set; }
-        public override string ToString() { return networkStandard; }
+        public abstract string FormFactor { get; set; }
+        public abstract string NetworkStandard { get; set; }
+        public override string ToString() { return NetworkStandard; }
     }
 }

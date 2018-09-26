@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MobilePhone.MobileComponents.Screen {
     public class ColorfulScreen : ScreenBase {
-        public ColorfulScreen() : base() { colorDepth = 8; }
-        public override double screenDiagonal { get; set; }
-        public override int screenPPI { get { return getPPi(PPICoef); } }
-        public int colorDepth { get; set; }
+        public ColorfulScreen() : base() { ColorDepth = 8; }
+        public override double ScreenDiagonal { get; set; }
+        public override int ScreenPPI { get { return GetPPi(PPICoef); } }
+        public int ColorDepth { get; set; }
         public override void Show(IScreenImage screenImage) {
-            Console.WriteLine("Colorful picture with height: " + screenImage.imageHeight + " and width: " + screenImage.imageWidth);
+            Console.WriteLine("Colorful picture with height: " + screenImage.ImageHeight + " and width: " + screenImage.ImageWidth);
         }
         public override string ToString() { return "Colorful screen"; }
     }

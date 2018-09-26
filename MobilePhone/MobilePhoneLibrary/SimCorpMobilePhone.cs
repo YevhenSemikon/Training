@@ -8,11 +8,11 @@ namespace MobilePhone {
     public class SimCorpMobilePhone : MobilePhone {        
         public SimCorpMobilePhone() {
             Storage = new Storage();
-            Screen.screenDiagonal = 5.5;
-            Microphone.sensitivity = 70;
-            Battery.capacity = 1000;
-            Speaker.power = 2;
-            SimCard.formFactor = "MicroSim";
+            Screen.ScreenDiagonal = 5.5;
+            Microphone.Sensitivity = 70;
+            Battery.Capacity = 1000;
+            Speaker.Power = 2;
+            SimCard.FormFactor = "MicroSim";
         }
         public override ScreenBase Screen { get { return vOLEDScreen; } }
         public override MicrophoneBase Microphone { get { return vDynamicMicrophone; } }

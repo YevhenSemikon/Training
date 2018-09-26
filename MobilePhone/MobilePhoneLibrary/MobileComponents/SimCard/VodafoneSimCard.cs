@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 namespace MobilePhone.MobileComponents.SimCard {
     public class VodafoneSimCard : SimCardBase {
         public VodafoneSimCard() : base() {
-            networkStandard = "3g";
-            formFactor = "MicroSim";
+            NetworkStandard = "3g";
+            FormFactor = "MicroSim";
         }
         public VodafoneSimCard(string formFactor, string networkStandard) {
-            this.networkStandard = networkStandard;
-            this.formFactor = formFactor;
+            this.NetworkStandard = networkStandard;
+            this.FormFactor = formFactor;
         }
-        public string phoneNumber { get; set; }
-        public override string formFactor { get; set; }
-        public override string networkStandard { get; set; }
+        public string PhoneNumber { get; set; }
+        public override string FormFactor { get; set; }
+        public override string NetworkStandard { get; set; }
     }
 }

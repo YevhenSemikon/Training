@@ -8,13 +8,13 @@ namespace MobilePhone.MobileComponents.Speaker {
     public abstract class SpeakerBase {
         protected int currentVolume;
         private int previousVolume;
-        private int maxVolume = 100;
-        private int minVolume = 0;
+        private readonly int maxVolume = 100;
+        private readonly int minVolume = 0;
         public SpeakerBase() {   
-            power = 2;
+            Power = 2;
             currentVolume = 30;
         }
-        public abstract int power { get; set; }
+        public abstract int Power { get; set; }
         public void SilenceMode(bool mode) {
             if (mode) {
                 Console.WriteLine("Silence mode is on");

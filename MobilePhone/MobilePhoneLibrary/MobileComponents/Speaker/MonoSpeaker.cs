@@ -10,9 +10,9 @@ namespace MobilePhone.MobileComponents.Speaker {
         public MonoSpeaker(int currentVolume) : base() {
             this.currentVolume = currentVolume;
         }
-        public int volume { get { return currentVolume; } }
-        public override int power { get; set; }
-        public int channelsNumber { get { return 1; } }
+        public int Volume { get { return currentVolume; } }
+        public override int Power { get; set; }
+        public int ChannelsNumber { get { return 1; } }
         public override string ToString() { return "Mono-Speaker"; }
     }
 }

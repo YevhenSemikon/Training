@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace MobilePhone.MobileComponents.Microphone {
    public class CondenserMicrophone : MicrophoneBase {
         public CondenserMicrophone() : base() { }
-        public override int sensitivity { get; set; }
-        public override int maxFrequency { get { return 15000; } }
-        public override int minFrequency { get { return 20; } }
+        public override int Sensitivity { get; set; }
+        public override int MaxFrequency { get { return 15000; } }
+        public override int MinFrequency { get { return 20; } }
         public override string ToString() { return "Condenser Microphone"; }
     }
 }

@@ -34,7 +34,7 @@ namespace MobilePhoneApp {
         }
         public void button2_Click(object sender, EventArgs e) {
             textBox1.Clear();
-            label1.Text = "Select charge component";
+            label1.Text = "Select ChargeLevel component";
             label1.Name = "ChargeComponent";
             label1.Visible = true;
             //Initialize radiobutton1;

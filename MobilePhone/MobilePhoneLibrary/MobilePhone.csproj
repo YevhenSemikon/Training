@@ -48,6 +48,7 @@
     <Compile Include="MobileComponents\AudioJack\SamsungHeadset.cs" />
     <Compile Include="MobileComponents\AudioJack\UnofficialiPhoneHeadset.cs" />
     <Compile Include="MobileComponents\Battery\BatteryBase.cs" />
+    <Compile Include="MobileComponents\Battery\ChargeLevel.cs" />
     <Compile Include="MobileComponents\Battery\LiIonBattery.cs" />
     <Compile Include="MobileComponents\Battery\LiPolBattery.cs" />
     <Compile Include="MobileComponents\Battery\NiCdBattery.cs" />

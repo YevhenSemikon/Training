@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MobilePhone.MobileComponents.Screen {
     public interface IScreenImage {
-        int imageHeight { get; set; }
-        int imageWidth { get; set; }
+        int ImageHeight { get; set; }
+        int ImageWidth { get; set; }
         void Draw(int imageHeight, int imageWidth);
     }
 }

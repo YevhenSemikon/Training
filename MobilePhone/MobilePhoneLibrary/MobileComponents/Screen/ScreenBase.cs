@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace MobilePhone.MobileComponents.Screen {
     public abstract class ScreenBase {
         protected int PPICoef = 50;
-        public ScreenBase() { screenDiagonal = 3; }
-        public abstract double screenDiagonal { get; set; }
-        public abstract int screenPPI { get; }
-        protected int getPPi(int PPICoef) {
-            return Convert.ToInt32(screenDiagonal * PPICoef);
+        public ScreenBase() { ScreenDiagonal = 3; }
+        public abstract double ScreenDiagonal { get; set; }
+        public abstract int ScreenPPI { get; }
+        protected int GetPPi(int PPICoef) {
+            return Convert.ToInt32(ScreenDiagonal * PPICoef);
         }
         public abstract void Show(IScreenImage screenImage);
     }
