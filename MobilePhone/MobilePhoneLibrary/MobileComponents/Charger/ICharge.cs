@@ -9,6 +9,5 @@ namespace MobilePhone.MobileComponents.Charger {
 
         double ChargerCoef { get; set; }
         void Charge();
-        void Charge(MobilePhone mobile, bool turnOn);
     }
 }

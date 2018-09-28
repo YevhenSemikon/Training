@@ -8,14 +8,11 @@ using MobilePhone;
 
 namespace MessageFormattingApp {
     internal class SMSProviderThread : SMSProvider {
-        public SMSProviderThread():base() {}
-        public Thread Start(int messageNumber, int pause, Storage storage) {
-            Thread messageGenerator = new Thread(() => CreateMessages(messageNumber, pause,storage));
+        public SMSProviderThread() : base() { }
+        public void Start(Storage storage, CancellationToken token) {
+            Thread messageGenerator = new Thread(() => CreateMessages(storage, token));
+            messageGenerator.Name = "mesage";
             messageGenerator.Start();
-            return messageGenerator;
-        }
-        public void Stop(Thread messageGenerator) {
-            messageGenerator.Abort();
         }
     }
 }

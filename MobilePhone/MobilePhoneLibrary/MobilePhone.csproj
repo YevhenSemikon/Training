@@ -48,12 +48,15 @@
     <Compile Include="MobileComponents\AudioJack\SamsungHeadset.cs" />
     <Compile Include="MobileComponents\AudioJack\UnofficialiPhoneHeadset.cs" />
     <Compile Include="MobileComponents\Battery\BatteryBase.cs" />
-    <Compile Include="MobileComponents\Battery\ChargeLevel.cs" />
+    <Compile Include="MobileComponents\Battery\BatteryChargeLevelTask.cs" />
+    <Compile Include="MobileComponents\Battery\BatteryChargeLevel.cs" />
+    <Compile Include="MobileComponents\Battery\BatteryChargeLevelThread.cs" />
     <Compile Include="MobileComponents\Battery\LiIonBattery.cs" />
     <Compile Include="MobileComponents\Battery\LiPolBattery.cs" />
     <Compile Include="MobileComponents\Battery\NiCdBattery.cs" />
     <Compile Include="MobileComponents\Charger\ICharge.cs" />
     <Compile Include="MobileComponents\Charger\iPhoneCharger.cs" />
+    <Compile Include="MobileComponents\Charger\NullCharger.cs" />
     <Compile Include="MobileComponents\Charger\SamsungCharger.cs" />
     <Compile Include="MobileComponents\Charger\UnofficialiPhoneCharger.cs" />
     <Compile Include="MobileComponents\IOutput.cs" />

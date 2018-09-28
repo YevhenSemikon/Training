@@ -3,10 +3,19 @@ using MobilePhone.MobileComponents.Screen;
 using MobilePhone.MobileComponents.Battery;
 using MobilePhone.MobileComponents.Speaker;
 using MobilePhone.MobileComponents.SimCard;
+using MobilePhone.MobileComponents.Charger;
 
 namespace MobilePhone {
     public class SimCorpMobilePhone : MobilePhone {        
-        public SimCorpMobilePhone() {
+        public SimCorpMobilePhone():base() {
+            Storage = new Storage();
+            Screen.ScreenDiagonal = 5.5;
+            Microphone.Sensitivity = 70;
+            Battery.Capacity = 1000;
+            Speaker.Power = 2;
+            SimCard.FormFactor = "MicroSim";           
+        }
+        public SimCorpMobilePhone(BatteryChargeLevel batteryChargeLevel) : base(batteryChargeLevel) {
             Storage = new Storage();
             Screen.ScreenDiagonal = 5.5;
             Microphone.Sensitivity = 70;

@@ -3,63 +3,56 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobilePhone;
 using MessageFormattingApp;
 
-namespace UnitTestMobilePhone
-{
+namespace UnitTestMobilePhone {
     [TestClass]
-    public class MessageFilteringTest
-    {
+    public class MessageFilteringTest {
         [TestMethod]
-        public void FilterByUser()
-        {
+        public void FilterByUser() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0, storage: mobile.Storage);
             string selectedUser = "+380971234567";
-            var messageList=mobile.Storage.FilterMessageByUser(mobile.Storage.MessagesList, selectedUser);
+            var messageList = mobile.Storage.FilterMessageByUser(mobile.Storage.MessagesList, selectedUser);
             int expectedCount = 3;
             Assert.AreEqual(expectedCount, messageList.FindAll(u => u.User == selectedUser).Count);
         }
 
         [TestMethod]
-        public void FilterByText()
-        {
+        public void FilterByText() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);            
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0, storage: mobile.Storage);
             string selectedText = "Message #1 received!";
             var messageList = mobile.Storage.FilterMessageByText(mobile.Storage.MessagesList, selectedText);
             int expectedCount = 1;
-            Assert.AreEqual(expectedCount,messageList.FindAll(t => t.Text == selectedText).Count);
+            Assert.AreEqual(expectedCount, messageList.FindAll(t => t.Text == selectedText).Count);
         }
 
         [TestMethod]
-        public void FilterByDatePositive()
-        {
+        public void FilterByDatePositive() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider.CreateMessages(messagesNumber: 1, pause: 0,storage: mobile.Storage);
+            SMSProvider.CreateMessages(messagesNumber: 1, pause: 0, storage: mobile.Storage);
             var startDate = DateTime.Now.AddMinutes(-1);
             var endDate = DateTime.Now.AddHours(1);
-            var messageList = mobile.Storage.FilterMessageByDate(mobile.Storage.MessagesList, startDate,endDate);
+            var messageList = mobile.Storage.FilterMessageByDate(mobile.Storage.MessagesList, startDate, endDate);
             int expectedCount = 3;
             Assert.AreEqual(expectedCount, messageList.Count);
         }
 
         [TestMethod]
-        public void FilterByDateNegative()
-        {
+        public void FilterByDateNegative() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider.CreateMessages(messagesNumber: 1, pause: 0,storage: mobile.Storage);
+            SMSProvider.CreateMessages(messagesNumber: 1, pause: 0, storage: mobile.Storage);
             var startDate = DateTime.Now.AddDays(-1);
             var endDate = DateTime.Now.AddHours(-1);
-            var messageList = mobile.Storage.FilterMessageByDate(mobile.Storage.MessagesList,startDate,endDate);
+            var messageList = mobile.Storage.FilterMessageByDate(mobile.Storage.MessagesList, startDate, endDate);
             int expectedCount = 0;
             Assert.AreEqual(expectedCount, messageList.Count);
         }
 
         [TestMethod]
         //Number of Messages filtered by date = 0, by user = 3, total messages = 3 
-        public void FilterByDateOrUser()
-        {
+        public void FilterByDateOrUser() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0, storage: mobile.Storage);
             var startDate = DateTime.Now.AddDays(-1);
             var endDate = DateTime.Now.AddHours(-1);
             string selectedUser = "+380971234567";
@@ -73,10 +66,9 @@ namespace UnitTestMobilePhone
 
         [TestMethod]
         //Number of Messages filtered by date = 9, by user = 3, total messages = 9 (3 messages included in 9)
-        public void FilterByUserOrDate()
-        {
+        public void FilterByUserOrDate() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0, storage: mobile.Storage);
             var startDate = DateTime.Now.AddMinutes(-1);
             var endDate = DateTime.Now.AddHours(1);
             string selectedUser = "+380971234567";
@@ -90,10 +82,9 @@ namespace UnitTestMobilePhone
 
         [TestMethod]
         //Number of Messages filtered by date = 0, by text = 1, total messages = 1
-        public void FilterByDateOrText()
-        {
+        public void FilterByDateOrText() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0, storage: mobile.Storage);
             var startDate = DateTime.Now.AddDays(-1);
             var endDate = DateTime.Now.AddHours(-1);
             string selectedUser = "";
@@ -107,10 +98,9 @@ namespace UnitTestMobilePhone
 
         [TestMethod]
         //Number of Messages filtered by date = 9, by text = 0, total messages = 9
-        public void FilterByTextOrDate()
-        {
+        public void FilterByTextOrDate() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0, storage: mobile.Storage);
             var startDate = DateTime.Now.AddMinutes(-1);
             var endDate = DateTime.Now.AddHours(1);
             string selectedUser = "";
@@ -124,10 +114,9 @@ namespace UnitTestMobilePhone
 
         [TestMethod]
         //Number of Messages filtered by date = 0, by text = 1,by user = 3, total messages = 4 (all messages unique)
-        public void FilterByDateOrTextorUser()
-        {
+        public void FilterByDateOrTextorUser() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0, storage: mobile.Storage);
             var startDate = DateTime.Now.AddDays(-1);
             var endDate = DateTime.Now.AddHours(-1);
             string selectedUser = "+380971234567";
@@ -141,10 +130,9 @@ namespace UnitTestMobilePhone
 
         [TestMethod]
         //Number of Messages filtered by date = 9, by text = 1, total messages = 1
-        public void FilterByDateAndText()
-        {
+        public void FilterByDateAndText() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0, storage: mobile.Storage);
             var startDate = DateTime.Now.AddMinutes(-1);
             var endDate = DateTime.Now.AddHours(1);
             string selectedUser = "";
@@ -158,10 +146,9 @@ namespace UnitTestMobilePhone
 
         [TestMethod]
         //Number of Messages filtered by date = 9, by user = 3, total messages = 3
-        public void FilterByDateAndUser()
-        {
+        public void FilterByDateAndUser() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0, storage: mobile.Storage);
             var startDate = DateTime.Now.AddMinutes(-1);
             var endDate = DateTime.Now.AddHours(1);
             string selectedUser = "+380971234567";
@@ -175,10 +162,9 @@ namespace UnitTestMobilePhone
 
         [TestMethod]
         //Number of Messages filtered by date = 9, by user = 3, by text 1, total messages = 1
-        public void FilterByDateAndUserAndText()
-        {
+        public void FilterByDateAndUserAndText() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0,storage: mobile.Storage);
+            SMSProvider.CreateMessages(messagesNumber: 3, pause: 0, storage: mobile.Storage);
             var startDate = DateTime.Now.AddMinutes(-1);
             var endDate = DateTime.Now.AddHours(1);
             string selectedUser = "+380971234567";

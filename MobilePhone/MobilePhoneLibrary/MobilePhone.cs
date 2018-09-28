@@ -9,9 +9,24 @@ using MobilePhone.MobileComponents.Charger;
 
 namespace MobilePhone {
     public abstract class MobilePhone {
+        private ICharge vChargerComponent;
+        public MobilePhone()
+	    {   
+            ChargerComponent = new NullCharger();
+        }
+        public MobilePhone(BatteryChargeLevel batteryChargeLevel) {
+            Battery.ChargeLevel = batteryChargeLevel;
+            ChargerComponent = new NullCharger();           
+        }
         public Storage Storage { get; set; }
         public IPlayback PlaybackComponent { get; set; }
-        public ICharge ChargerComponent { get; set; }
+        public ICharge ChargerComponent {
+            get { return vChargerComponent; }
+            set {
+                this.Battery.BatteryCharger = value;
+                vChargerComponent = value;
+            }
+        }
         public abstract ScreenBase Screen { get; }
         public abstract MicrophoneBase Microphone { get; }
         public abstract BatteryBase Battery { get; }
@@ -34,10 +49,6 @@ namespace MobilePhone {
         }
         public void Charge() {
             ChargerComponent.Charge();
-        }
-        public void Charge(bool turnOn)
-        {
-            ChargerComponent.Charge(this, turnOn);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace MessageFormattingApp {
             this.ANDConditionCheckBox = new System.Windows.Forms.CheckBox();
             this.StartMessageButton = new System.Windows.Forms.Button();
             this.ChargeButton = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.ChargingBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // FormattingListComboBox
@@ -48,7 +48,7 @@ namespace MessageFormattingApp {
             "End with Date",
             "UpperCase",
             "LowerCase"});
-            this.FormattingListComboBox.Location = new System.Drawing.Point(10, 85);
+            this.FormattingListComboBox.Location = new System.Drawing.Point(12, 114);
             this.FormattingListComboBox.Name = "FormattingListComboBox";
             this.FormattingListComboBox.Size = new System.Drawing.Size(161, 21);
             this.FormattingListComboBox.TabIndex = 0;
@@ -58,7 +58,7 @@ namespace MessageFormattingApp {
             // AutoScrollCheckBox
             // 
             this.AutoScrollCheckBox.AutoSize = true;
-            this.AutoScrollCheckBox.Location = new System.Drawing.Point(309, 111);
+            this.AutoScrollCheckBox.Location = new System.Drawing.Point(309, 91);
             this.AutoScrollCheckBox.Name = "AutoScrollCheckBox";
             this.AutoScrollCheckBox.Size = new System.Drawing.Size(77, 17);
             this.AutoScrollCheckBox.TabIndex = 2;
@@ -85,7 +85,7 @@ namespace MessageFormattingApp {
             this.userFilterComboBox.FormattingEnabled = true;
             this.userFilterComboBox.Items.AddRange(new object[] {
             "None"});
-            this.userFilterComboBox.Location = new System.Drawing.Point(193, 12);
+            this.userFilterComboBox.Location = new System.Drawing.Point(192, 12);
             this.userFilterComboBox.Name = "userFilterComboBox";
             this.userFilterComboBox.Size = new System.Drawing.Size(193, 21);
             this.userFilterComboBox.TabIndex = 4;
@@ -94,7 +94,7 @@ namespace MessageFormattingApp {
             // 
             // messageFilterTextBox
             // 
-            this.messageFilterTextBox.Location = new System.Drawing.Point(193, 48);
+            this.messageFilterTextBox.Location = new System.Drawing.Point(192, 39);
             this.messageFilterTextBox.Name = "messageFilterTextBox";
             this.messageFilterTextBox.Size = new System.Drawing.Size(193, 20);
             this.messageFilterTextBox.TabIndex = 5;
@@ -103,27 +103,27 @@ namespace MessageFormattingApp {
             // startDateTimePicker
             // 
             this.startDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.startDateTimePicker.Location = new System.Drawing.Point(192, 85);
+            this.startDateTimePicker.Location = new System.Drawing.Point(192, 65);
             this.startDateTimePicker.Name = "startDateTimePicker";
             this.startDateTimePicker.Size = new System.Drawing.Size(95, 20);
             this.startDateTimePicker.TabIndex = 6;
-            this.startDateTimePicker.Value = new System.DateTime(2018, 9, 25, 0, 0, 0, 0);
+            this.startDateTimePicker.Value = new System.DateTime(2018, 9, 26, 0, 0, 0, 0);
             this.startDateTimePicker.ValueChanged += new System.EventHandler(this.StartDateTimePicker_ValueChanged);
             // 
             // endDateTimePicker
             // 
             this.endDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.endDateTimePicker.Location = new System.Drawing.Point(294, 85);
+            this.endDateTimePicker.Location = new System.Drawing.Point(294, 65);
             this.endDateTimePicker.Name = "endDateTimePicker";
             this.endDateTimePicker.Size = new System.Drawing.Size(92, 20);
             this.endDateTimePicker.TabIndex = 7;
-            this.endDateTimePicker.Value = new System.DateTime(2018, 9, 25, 23, 59, 59, 0);
+            this.endDateTimePicker.Value = new System.DateTime(2018, 9, 27, 0, 0, 0, 0);
             this.endDateTimePicker.ValueChanged += new System.EventHandler(this.EndDateTimePicker_ValueChanged);
             // 
             // ANDConditionCheckBox
             // 
             this.ANDConditionCheckBox.AutoSize = true;
-            this.ANDConditionCheckBox.Location = new System.Drawing.Point(192, 111);
+            this.ANDConditionCheckBox.Location = new System.Drawing.Point(192, 91);
             this.ANDConditionCheckBox.Name = "ANDConditionCheckBox";
             this.ANDConditionCheckBox.Size = new System.Drawing.Size(96, 17);
             this.ANDConditionCheckBox.TabIndex = 8;
@@ -134,7 +134,7 @@ namespace MessageFormattingApp {
             // 
             // StartMessageButton
             // 
-            this.StartMessageButton.Location = new System.Drawing.Point(10, 120);
+            this.StartMessageButton.Location = new System.Drawing.Point(298, 114);
             this.StartMessageButton.Name = "StartMessageButton";
             this.StartMessageButton.Size = new System.Drawing.Size(88, 24);
             this.StartMessageButton.TabIndex = 9;
@@ -144,19 +144,20 @@ namespace MessageFormattingApp {
             // 
             // ChargeButton
             // 
-            this.ChargeButton.Location = new System.Drawing.Point(57, 48);
+            this.ChargeButton.Location = new System.Drawing.Point(53, 62);
             this.ChargeButton.Name = "ChargeButton";
-            this.ChargeButton.Size = new System.Drawing.Size(75, 23);
+            this.ChargeButton.Size = new System.Drawing.Size(91, 23);
             this.ChargeButton.TabIndex = 10;
             this.ChargeButton.Text = "Charge";
             this.ChargeButton.UseVisualStyleBackColor = true;
+            this.ChargeButton.Click += new System.EventHandler(this.ChargeButton_Click);
             // 
-            // progressBar1
+            // ChargingBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(10, 10);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(177, 23);
-            this.progressBar1.TabIndex = 11;
+            this.ChargingBar.Location = new System.Drawing.Point(9, 26);
+            this.ChargingBar.Name = "ChargingBar";
+            this.ChargingBar.Size = new System.Drawing.Size(177, 23);
+            this.ChargingBar.TabIndex = 11;
             // 
             // MessageFiltering
             // 
@@ -164,7 +165,7 @@ namespace MessageFormattingApp {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(412, 400);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.ChargingBar);
             this.Controls.Add(this.ChargeButton);
             this.Controls.Add(this.StartMessageButton);
             this.Controls.Add(this.ANDConditionCheckBox);
@@ -175,6 +176,7 @@ namespace MessageFormattingApp {
             this.Controls.Add(this.MessageListView);
             this.Controls.Add(this.AutoScrollCheckBox);
             this.Controls.Add(this.FormattingListComboBox);
+            this.MaximizeBox = false;
             this.Name = "MessageFiltering";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Message Filtering";
@@ -197,7 +199,7 @@ namespace MessageFormattingApp {
         private System.Windows.Forms.CheckBox ANDConditionCheckBox;
         private System.Windows.Forms.Button StartMessageButton;
         private System.Windows.Forms.Button ChargeButton;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar ChargingBar;
     }
 }
 

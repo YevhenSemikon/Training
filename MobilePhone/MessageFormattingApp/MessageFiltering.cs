@@ -1,4 +1,6 @@
 ﻿using MobilePhone;
+using MobilePhone.MobileComponents.Battery;
+using MobilePhone.MobileComponents.Charger;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,22 +17,24 @@ namespace MessageFormattingApp {
 
     public partial class MessageFiltering : Form {
         Storage.FormatDelegate Formatter = Storage.NoneFormat;
-
+        CancellationTokenSource cancelMessageToken = new CancellationTokenSource();
         private int disabledItemIndex = -1;
         private int selectedIndex = 0;
-        private Thread threadGenerator;
         Font myFont = new Font("Aerial", 10, FontStyle.Regular | FontStyle.Italic);
         HashSet<string> users = new HashSet<string>() { "None" };
-        SimCorpMobilePhone mobile = new SimCorpMobilePhone();
+
+        SimCorpMobilePhone mobile = new SimCorpMobilePhone(new BatteryChargeLevelTask());
         SMSProviderThread smsProvider = new SMSProviderThread();
+        ICharge phoneCharger = new iPhoneCharger();
+        ICharge noCharger = new NullCharger();
 
         public MessageFiltering() {
             InitializeComponent();
             this.FormattingListComboBox.DrawMode = DrawMode.OwnerDrawFixed;
             this.FormattingListComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.FormattingListComboBox_DrawItem);
             mobile.Storage.MessageAdd += ShowMessage;
-            //AddSMSProviderDelegate addSMSProvider = SMSProvider.CreateMessages;
-            // addSMSProvider.BeginInvoke(messageNumber: 100, pause: 1000, storage: mobile.Storage, callback: null, @object: null);
+            mobile.Battery.ChargeLevel.OnChargingLevelChange += UpdateProgressBar;
+            ChargingBar.Value = mobile.Battery.ChargeLevel.CurrentChargeLevel;
         }
 
         public void ShowMessage(List<MobilePhone.Message> messages) {
@@ -126,12 +130,33 @@ namespace MessageFormattingApp {
 
         private void StartMessageButton_Click(object sender, EventArgs e) {
             if (StartMessageButton.Text == "Start Receiving") {
-                threadGenerator = smsProvider.Start(messageNumber: 100, pause: 1000, storage: mobile.Storage);
+                cancelMessageToken = new CancellationTokenSource();
+                smsProvider.Start(mobile.Storage, cancelMessageToken.Token);
                 StartMessageButton.Text = "Stop Receiving";
             }
             else {
-                smsProvider.Stop(threadGenerator);
+                cancelMessageToken.Cancel();
                 StartMessageButton.Text = "Start Receiving";
+            }
+        }
+
+        private void ChargeButton_Click(object sender, EventArgs e) {
+            if (ChargeButton.Text == "Charge") {
+                mobile.ChargerComponent = phoneCharger; //Connect charger to phone
+                ChargeButton.Text = "Stop Charging";
+            }
+            else {
+                mobile.ChargerComponent = noCharger; //Disconnect charger from phone
+                ChargeButton.Text = "Charge";
+            }
+        }
+
+        public void UpdateProgressBar(int value) {
+            if (ChargingBar.InvokeRequired) {
+                Invoke(new BatteryChargeLevel.ChargeLevelChange(UpdateProgressBar), value);
+            }
+            else {
+                ChargingBar.Value = value;
             }
         }
     }

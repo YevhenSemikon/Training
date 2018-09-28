@@ -59,6 +59,8 @@
     <Compile Include="FormattingTest.cs" />
     <Compile Include="MessageFilteringTest.cs" />
     <Compile Include="StorageTest.cs" />
+    <Compile Include="ChargeThreadTest.cs" />
+    <Compile Include="ChargeTaskTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MessageFormattingApp\MessageFiltering.csproj">

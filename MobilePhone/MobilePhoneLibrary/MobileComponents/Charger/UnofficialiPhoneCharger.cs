@@ -12,6 +12,9 @@ namespace MobilePhone.MobileComponents.Charger {
             Output.WriteLine($"{nameof(UnofficialiPhoneCharger)} selected");
             ChargerCoef = 0.7;
         }
+        public UnofficialiPhoneCharger() {
+            ChargerCoef = 0.7;
+        }
 
         public double ChargerCoef { get; set; }
 
@@ -19,9 +22,6 @@ namespace MobilePhone.MobileComponents.Charger {
             Output.WriteLine("Charging Mobile:");
             Output.WriteLine($"Charging by {nameof(UnofficialiPhoneCharger)}");
         }
-
-        public void Charge(MobilePhone mobile, bool turnOn) { mobile.Battery.ChargingBattery(mobile, turnOn); }
-
         public override string ToString() {
             return "UnofficialiPhoneCharger";
         }

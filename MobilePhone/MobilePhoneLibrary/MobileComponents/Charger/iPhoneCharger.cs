@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 namespace MobilePhone.MobileComponents.Charger {
     public class iPhoneCharger : ICharge {
         private IOutput Output;
-        private double vChargerCoef;
 
-        public iPhoneCharger(IOutput output) {
-            ChargerCoef = 1;
+        public iPhoneCharger(IOutput output) {           
             Output = output;
             Output.WriteLine($"{nameof(iPhoneCharger)} selected");
+        }
+        public iPhoneCharger() {
+            ChargerCoef = 1;
         }
 
         public double ChargerCoef { get; set; }
@@ -22,8 +23,7 @@ namespace MobilePhone.MobileComponents.Charger {
             Output.WriteLine($"Charging by {nameof(iPhoneCharger)}");
             
         }
-        public void Charge(MobilePhone mobile, bool turnOn){ mobile.Battery.ChargingBattery(mobile, turnOn);}
-        
+          
         public override string ToString() {
             return "iPhoneCharger";
         }
