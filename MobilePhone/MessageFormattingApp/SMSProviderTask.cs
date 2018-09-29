@@ -8,10 +8,14 @@ using System.Threading.Tasks;
 
 namespace MessageFormattingApp {
     internal class SMSProviderTask : SMSProvider {
-        public SMSProviderTask():base() { }
-        public void Start(Storage storage,CancellationToken token) {
-            Task messageGenerator = Task.Factory.StartNew(() => CreateMessages(storage,token));
-            vMessageGeneratorTask = messageGenerator;           
+        public SMSProviderTask() : base() { }
+        public override void Start(Storage storage) {
+            cancelMessageToken = new CancellationTokenSource();
+            messageTaskGenerator = Task.Factory.StartNew(() => CreateMessages(storage, cancelMessageToken.Token));
+        }
+        public override void Stop() {
+            cancelMessageToken.Cancel();
+            Thread.Sleep(200);
         }
     }
 }

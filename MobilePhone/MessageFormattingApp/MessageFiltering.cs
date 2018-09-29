@@ -17,21 +17,25 @@ namespace MessageFormattingApp {
 
     public partial class MessageFiltering : Form {
         Storage.FormatDelegate Formatter = Storage.NoneFormat;
-        CancellationTokenSource cancelMessageToken = new CancellationTokenSource();
         private int disabledItemIndex = -1;
         private int selectedIndex = 0;
         Font myFont = new Font("Aerial", 10, FontStyle.Regular | FontStyle.Italic);
-        HashSet<string> users = new HashSet<string>() { "None" };
-
-        SimCorpMobilePhone mobile = new SimCorpMobilePhone(new BatteryChargeLevelTask());
-        SMSProviderThread smsProvider = new SMSProviderThread();
-        ICharge phoneCharger = new iPhoneCharger();
-        ICharge noCharger = new NullCharger();
+        HashSet<string> users;
+        SimCorpMobilePhone mobile;
+        SMSProvider smsProvider;
+        ICharge phoneCharger;
+        ICharge noCharger;
 
         public MessageFiltering() {
             InitializeComponent();
             this.FormattingListComboBox.DrawMode = DrawMode.OwnerDrawFixed;
             this.FormattingListComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.FormattingListComboBox_DrawItem);
+            mobile = new SimCorpMobilePhone(new BatteryChargeLevelTask());
+            smsProvider = new SMSProviderTask();
+            phoneCharger = new iPhoneCharger();
+            noCharger = new NullCharger();
+            users = new HashSet<string>() { "None" };
+            mobile.ChargerComponent = noCharger;
             mobile.Storage.MessageAdd += ShowMessage;
             mobile.Battery.ChargeLevel.OnChargingLevelChange += UpdateProgressBar;
             ChargingBar.Value = mobile.Battery.ChargeLevel.CurrentChargeLevel;
@@ -39,7 +43,12 @@ namespace MessageFormattingApp {
 
         public void ShowMessage(List<MobilePhone.Message> messages) {
             if (MessageListView.InvokeRequired) {
-                Invoke(new Storage.MessageAddDelegate(ShowMessage), messages);
+                try {
+                    Invoke(new Storage.MessageAddDelegate(ShowMessage), messages);
+                }
+                catch (ObjectDisposedException) {
+                    // Ignore. Control is disposed cannot update the UI. 
+                }
             }
             else {
                 List<Message> filteredMessages = messages;
@@ -130,12 +139,13 @@ namespace MessageFormattingApp {
 
         private void StartMessageButton_Click(object sender, EventArgs e) {
             if (StartMessageButton.Text == "Start Receiving") {
-                cancelMessageToken = new CancellationTokenSource();
-                smsProvider.Start(mobile.Storage, cancelMessageToken.Token);
+                smsProvider.Start(mobile.Storage);
+                Thread.Sleep(100);
                 StartMessageButton.Text = "Stop Receiving";
             }
             else {
-                cancelMessageToken.Cancel();
+                smsProvider.Stop();
+                Thread.Sleep(100);
                 StartMessageButton.Text = "Start Receiving";
             }
         }
@@ -143,17 +153,24 @@ namespace MessageFormattingApp {
         private void ChargeButton_Click(object sender, EventArgs e) {
             if (ChargeButton.Text == "Charge") {
                 mobile.ChargerComponent = phoneCharger; //Connect charger to phone
+                Thread.Sleep(100);
                 ChargeButton.Text = "Stop Charging";
             }
             else {
                 mobile.ChargerComponent = noCharger; //Disconnect charger from phone
+                Thread.Sleep(100);
                 ChargeButton.Text = "Charge";
             }
         }
 
         public void UpdateProgressBar(int value) {
             if (ChargingBar.InvokeRequired) {
-                Invoke(new BatteryChargeLevel.ChargeLevelChange(UpdateProgressBar), value);
+                try {
+                    Invoke(new BatteryChargeLevel.ChargeLevelChange(UpdateProgressBar), value);
+                }
+                catch (ObjectDisposedException) {
+                    // Ignore. Control is disposed cannot update the UI. 
+                }
             }
             else {
                 ChargingBar.Value = value;

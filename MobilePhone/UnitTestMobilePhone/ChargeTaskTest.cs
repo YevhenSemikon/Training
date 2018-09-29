@@ -13,20 +13,16 @@ namespace UnitTestMobilePhone {
         public void ChargeTaskIncrease() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone(new BatteryChargeLevelTask(99));
             mobile.ChargerComponent = new iPhoneCharger();
-            if (!mobile.Battery.ChargeLevel.vDisChargingTask.IsCanceled) {
-                mobile.Battery.ChargeLevel.vDisChargingTask.Wait();
-            }
-            mobile.Battery.ChargeLevel.vChargingTask.Wait();
+            Thread.Sleep(3000);
             int actual = mobile.Battery.ChargeLevel.CurrentChargeLevel;
-            Assert.IsTrue(actual > 99 && (mobile.Battery.ChargeLevel.vDisChargingTask.IsCompleted
-            || mobile.Battery.ChargeLevel.vDisChargingTask.IsCanceled)
-                );
+            Assert.IsTrue(actual > 99 && mobile.Battery.ChargeLevel?.vDisChargingTask == null);
         }
 
         [TestMethod]
-        public void ChargeDecrease() {
+        public void ChargeTaskDecrease() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone(new BatteryChargeLevelTask(1));
-            mobile.Battery.ChargeLevel.vDisChargingTask.Wait();
+            mobile.ChargerComponent = new NullCharger();
+            Thread.Sleep(5000);
             int actual = mobile.Battery.ChargeLevel.CurrentChargeLevel;
             Assert.IsTrue(actual < 1 && mobile.Battery.ChargeLevel?.vChargingTask == null);
         }

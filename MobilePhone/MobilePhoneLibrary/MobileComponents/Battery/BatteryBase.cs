@@ -10,7 +10,6 @@ namespace MobilePhone.MobileComponents.Battery {
     public abstract class BatteryBase {
         private ICharge vBatteryCharger;
         private bool vCharge;
-        private BatteryChargeLevel vBatteryChargeLevel;
         public CancellationTokenSource cancelChargeToken = new CancellationTokenSource();
         public CancellationTokenSource cancelDisChargeToken = new CancellationTokenSource();
         public BatteryBase() {
@@ -26,28 +25,17 @@ namespace MobilePhone.MobileComponents.Battery {
                 vCharge = value;
             }
         }
-        public ICharge BatteryCharger {
+        internal ICharge BatteryCharger {
             get { return vBatteryCharger; }
             set {
+                vBatteryCharger = value;
                 if (value is NullCharger) {
                     Charge = false;
                 }
                 else { Charge = true; }
-                vBatteryCharger = value;
             }
         }
-        public BatteryChargeLevel ChargeLevel {
-            get { return vBatteryChargeLevel; }
-            set {
-                if (vBatteryChargeLevel != null) {
-                    cancelChargeToken.Cancel();
-                    cancelDisChargeToken.Cancel();
-                    cancelDisChargeToken = new CancellationTokenSource();
-                    cancelChargeToken = new CancellationTokenSource();
-                }
-                vBatteryChargeLevel = value;
-            }
-        }
+        public BatteryChargeLevel ChargeLevel { get; internal set; }
         public abstract int Capacity { get; set; }
         public abstract double BatteryChargeCoef { get; set; }
         public abstract double BatteryDisChargeCoef { get; set; }
@@ -59,14 +47,22 @@ namespace MobilePhone.MobileComponents.Battery {
         internal void ChargingBattery(bool turnOn) {
             if (turnOn) {
                 cancelDisChargeToken.Cancel();
+                Thread.Sleep(200);
                 ChargeLevel.StartCharging(BatteryCharger, this, cancelChargeToken.Token);
                 cancelDisChargeToken = new CancellationTokenSource();
             }
             else {
                 cancelChargeToken.Cancel();
+                Thread.Sleep(200);
                 ChargeLevel.StartDisCharging(this, cancelDisChargeToken.Token);
                 cancelChargeToken = new CancellationTokenSource();
             }
+        }
+
+        public void CancelThreads() {
+            cancelChargeToken.Cancel();
+            cancelDisChargeToken.Cancel();
+            Thread.Sleep(400);
         }
     }
 }

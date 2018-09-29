@@ -10,13 +10,9 @@ using MobilePhone.MobileComponents.Charger;
 namespace MobilePhone {
     public abstract class MobilePhone {
         private ICharge vChargerComponent;
-        public MobilePhone()
-	    {   
-            ChargerComponent = new NullCharger();
-        }
+        public MobilePhone() { }
         public MobilePhone(BatteryChargeLevel batteryChargeLevel) {
             Battery.ChargeLevel = batteryChargeLevel;
-            ChargerComponent = new NullCharger();           
         }
         public Storage Storage { get; set; }
         public IPlayback PlaybackComponent { get; set; }

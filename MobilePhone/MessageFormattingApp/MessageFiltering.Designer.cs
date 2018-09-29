@@ -16,16 +16,8 @@ namespace MessageFormattingApp {
             if (disposing && (components != null)) {
                 components.Dispose();
             }
-            this.Text = "Waiting for completion of all processes before closing";
-            mobile.Battery.cancelChargeToken.Cancel();
-            mobile.Battery.cancelDisChargeToken.Cancel();
-            cancelMessageToken.Cancel();
-            smsProvider.vMessageGeneratorTask?.Wait();
-            smsProvider.vMessageGeneratorThread?.Abort();
-            mobile.Battery.ChargeLevel.vChargingThread?.Abort();
-            mobile.Battery.ChargeLevel.vDisChargingThread?.Abort();
-            mobile.Battery.ChargeLevel.vDisChargingTask?.Wait();
-            mobile.Battery.ChargeLevel.vChargingTask?.Wait();
+            mobile.Battery.CancelThreads();
+            smsProvider.Stop();          
             base.Dispose(disposing);
         }
 

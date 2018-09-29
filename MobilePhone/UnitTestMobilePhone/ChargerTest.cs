@@ -14,6 +14,7 @@ namespace UnitTestMobilePhone {
             var consoleOutput = new ConsoleOutput();
             ICharge chargerComponent = new iPhoneCharger(consoleOutput);
             mobile.ChargerComponent = chargerComponent;
+            mobile.Battery.CancelThreads();
             var expected1 = "iPhoneCharger selected";
             var actual1 = consoleOutput.textTest;
             Assert.AreEqual(expected1, actual1);
@@ -29,6 +30,7 @@ namespace UnitTestMobilePhone {
             var consoleOutput = new ConsoleOutput();
             ICharge chargerComponent = new SamsungCharger(consoleOutput);
             mobile.ChargerComponent = chargerComponent;
+            mobile.Battery.CancelThreads();
             var expected1 = "SamsungCharger selected";
             var actual1 = consoleOutput.textTest;
             Assert.AreEqual(expected1, actual1);
@@ -44,6 +46,7 @@ namespace UnitTestMobilePhone {
             var consoleOutput = new ConsoleOutput();
             ICharge chargerComponent = new UnofficialiPhoneCharger(consoleOutput);
             mobile.ChargerComponent = chargerComponent;
+            mobile.Battery.CancelThreads();
             var expected1 = "UnofficialiPhoneCharger selected";
             var actual1 = consoleOutput.textTest;
             Assert.AreEqual(expected1, actual1);

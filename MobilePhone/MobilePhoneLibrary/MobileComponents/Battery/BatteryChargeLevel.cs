@@ -9,6 +9,7 @@ namespace MobilePhone.MobileComponents.Battery {
         public Thread vDisChargingThread;
         public Task vChargingTask;
         public Task vDisChargingTask;
+        private readonly object ChargeLevelLock = new object();
         public delegate void ChargeLevelChange(int currentChargeLevel);
         public event ChargeLevelChange OnChargingLevelChange;
         internal BatteryChargeLevel(int currentChargeLevel) {
@@ -19,27 +20,31 @@ namespace MobilePhone.MobileComponents.Battery {
         }
         public int CurrentChargeLevel { get; private set; }
 
-        internal void Charging(ICharge charger, BatteryBase battery, CancellationToken token) {
+        protected void Charging(ICharge charger, BatteryBase battery, CancellationToken token) {
             while (CurrentChargeLevel < 100) {
                 int chargingTime = Convert.ToInt32(1000 * battery.BatteryCharger.ChargerCoef * battery.BatteryChargeCoef);
-                Thread.Sleep(chargingTime);
-                lock (this) {
-                    if (token.IsCancellationRequested) { break; }
+                lock (ChargeLevelLock) {
+                    if (token.IsCancellationRequested) {
+                        return;
+                    }
                     CurrentChargeLevel += 1;
                     OnChargingLevelChange?.Invoke(CurrentChargeLevel);
                 }
+                Thread.Sleep(chargingTime);
             }
         }
 
-        internal void DisCharging(BatteryBase battery, CancellationToken token) {
+        protected void DisCharging(BatteryBase battery, CancellationToken token) {
             while (CurrentChargeLevel > 0) {
                 int disChargingTime = Convert.ToInt32(3000 * battery.BatteryDisChargeCoef);
-                Thread.Sleep(disChargingTime);
-                lock (this) {
-                    if (token.IsCancellationRequested) { break; }
+                lock (ChargeLevelLock) {
+                    if (token.IsCancellationRequested) {
+                        return;
+                    }
                     CurrentChargeLevel -= 1;
                     OnChargingLevelChange?.Invoke(CurrentChargeLevel);
                 }
+                Thread.Sleep(disChargingTime);
             }
         }
 

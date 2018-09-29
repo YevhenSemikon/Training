@@ -11,11 +11,11 @@ namespace MobilePhone.MobileComponents.Battery {
         public BatteryChargeLevelTask() : base() { }
         internal BatteryChargeLevelTask(int currentChargeLevel) : base(currentChargeLevel) { }
         public override void StartCharging(ICharge charger, BatteryBase battery, CancellationToken token) {
-            Task chargingTask = Task.Factory.StartNew(() => Charging(charger, battery, token),token);
+            Task chargingTask = Task.Factory.StartNew(() => Charging(charger, battery, token));
             vChargingTask = chargingTask;
         }
         public override void StartDisCharging(BatteryBase battery, CancellationToken token) {
-            Task DisChargingTask = Task.Factory.StartNew(() => DisCharging(battery, token),token);
+            Task DisChargingTask = Task.Factory.StartNew(() => DisCharging(battery, token));
             vDisChargingTask = DisChargingTask;            
         }
     }

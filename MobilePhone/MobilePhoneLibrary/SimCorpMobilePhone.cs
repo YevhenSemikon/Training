@@ -6,16 +6,16 @@ using MobilePhone.MobileComponents.SimCard;
 using MobilePhone.MobileComponents.Charger;
 
 namespace MobilePhone {
-    public class SimCorpMobilePhone : MobilePhone {        
-        public SimCorpMobilePhone():base() {
+    public class SimCorpMobilePhone : MobilePhone {
+        public SimCorpMobilePhone(BatteryChargeLevel batteryChargeLevel) : base(batteryChargeLevel) {
             Storage = new Storage();
             Screen.ScreenDiagonal = 5.5;
             Microphone.Sensitivity = 70;
             Battery.Capacity = 1000;
             Speaker.Power = 2;
-            SimCard.FormFactor = "MicroSim";           
+            SimCard.FormFactor = "MicroSim";
         }
-        public SimCorpMobilePhone(BatteryChargeLevel batteryChargeLevel) : base(batteryChargeLevel) {
+        public SimCorpMobilePhone() {
             Storage = new Storage();
             Screen.ScreenDiagonal = 5.5;
             Microphone.Sensitivity = 70;

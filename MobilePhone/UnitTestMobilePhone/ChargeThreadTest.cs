@@ -12,29 +12,15 @@ namespace UnitTestMobilePhone {
         public void ChargeThreadIncrease() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone(new BatteryChargeLevelThread(99));
             mobile.ChargerComponent = new iPhoneCharger();
-            TimeSpan executionTime = new TimeSpan();
-            DateTime time = DateTime.Now;
-            while (mobile.Battery.ChargeLevel.vChargingThread.IsAlive) {
-                executionTime = DateTime.Now - time;
-                if (executionTime.Seconds > 10) {
-                    throw new StackOverflowException("Time of execution is too high: " + executionTime);
-                }
-            }
+            Thread.Sleep(3000);
             int actual = mobile.Battery.ChargeLevel.CurrentChargeLevel;
-            Thread.Sleep(2000); // Waiting for completion of all threads.
-            Assert.IsTrue(actual > 99 && !mobile.Battery.ChargeLevel.vDisChargingThread.IsAlive);
+            Assert.IsTrue(actual > 99 && mobile.Battery.ChargeLevel?.vDisChargingThread == null);
         }
         [TestMethod]
         public void ChargeThreadDecrease() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone(new BatteryChargeLevelThread(1));
-            TimeSpan executionTime = new TimeSpan();
-            DateTime time = DateTime.Now;
-            while (mobile.Battery.ChargeLevel.vDisChargingThread.IsAlive) {
-                executionTime = DateTime.Now - time;
-                if (executionTime.Seconds > 10) {
-                    throw new StackOverflowException("Time of execution is too high: " + executionTime);
-                }
-            }
+            mobile.ChargerComponent = new NullCharger();
+            Thread.Sleep(5000);
             int actual = mobile.Battery.ChargeLevel.CurrentChargeLevel;
             Assert.IsTrue(actual < 1 && mobile.Battery.ChargeLevel?.vChargingThread == null);
         }
