@@ -8,6 +8,8 @@ using MobilePhone;
 
 namespace MessageFormattingApp {
     internal class SMSProvider {
+        public Task vMessageGeneratorTask;
+        public Thread vMessageGeneratorThread;
         protected static int messagesNumber = 100;
         protected static int pause = 1000;
         public SMSProvider() {

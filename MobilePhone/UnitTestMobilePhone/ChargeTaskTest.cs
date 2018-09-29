@@ -13,30 +13,20 @@ namespace UnitTestMobilePhone {
         public void ChargeTaskIncrease() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone(new BatteryChargeLevelTask(99));
             mobile.ChargerComponent = new iPhoneCharger();
-            TimeSpan executionTime = new TimeSpan();
-            DateTime time = DateTime.Now;
-            while (mobile.Battery.ChargeLevel.vChargingTask.IsCompleted == false) {
-                executionTime = DateTime.Now - time;
-                if (executionTime.Seconds > 10) {
-                    throw new StackOverflowException("Time of execution is too high: " + executionTime);
-                }
+            if (!mobile.Battery.ChargeLevel.vDisChargingTask.IsCanceled) {
+                mobile.Battery.ChargeLevel.vDisChargingTask.Wait();
             }
+            mobile.Battery.ChargeLevel.vChargingTask.Wait();
             int actual = mobile.Battery.ChargeLevel.CurrentChargeLevel;
-            Thread.Sleep(2000); // Waiting for completion of all threads.
-            Assert.IsTrue(actual > 99 && mobile.Battery.ChargeLevel.vDisChargingTask.IsCompleted);
+            Assert.IsTrue(actual > 99 && (mobile.Battery.ChargeLevel.vDisChargingTask.IsCompleted
+            || mobile.Battery.ChargeLevel.vDisChargingTask.IsCanceled)
+                );
         }
 
         [TestMethod]
         public void ChargeDecrease() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone(new BatteryChargeLevelTask(1));
-            TimeSpan executionTime = new TimeSpan();
-            DateTime time = DateTime.Now;
-            while (mobile.Battery.ChargeLevel.vDisChargingTask.IsCompleted == false) {
-                executionTime = DateTime.Now - time;
-                if (executionTime.Seconds > 10) {
-                    throw new StackOverflowException("Time of execution is too high: " + executionTime);
-                }
-            }
+            mobile.Battery.ChargeLevel.vDisChargingTask.Wait();
             int actual = mobile.Battery.ChargeLevel.CurrentChargeLevel;
             Assert.IsTrue(actual < 1 && mobile.Battery.ChargeLevel?.vChargingTask == null);
         }

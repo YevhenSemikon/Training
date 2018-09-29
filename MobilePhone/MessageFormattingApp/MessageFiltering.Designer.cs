@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace MessageFormattingApp {
     partial class MessageFiltering {
@@ -15,6 +16,16 @@ namespace MessageFormattingApp {
             if (disposing && (components != null)) {
                 components.Dispose();
             }
+            this.Text = "Waiting for completion of all processes before closing";
+            mobile.Battery.cancelChargeToken.Cancel();
+            mobile.Battery.cancelDisChargeToken.Cancel();
+            cancelMessageToken.Cancel();
+            smsProvider.vMessageGeneratorTask?.Wait();
+            smsProvider.vMessageGeneratorThread?.Abort();
+            mobile.Battery.ChargeLevel.vChargingThread?.Abort();
+            mobile.Battery.ChargeLevel.vDisChargingThread?.Abort();
+            mobile.Battery.ChargeLevel.vDisChargingTask?.Wait();
+            mobile.Battery.ChargeLevel.vChargingTask?.Wait();
             base.Dispose(disposing);
         }
 
@@ -107,7 +118,7 @@ namespace MessageFormattingApp {
             this.startDateTimePicker.Name = "startDateTimePicker";
             this.startDateTimePicker.Size = new System.Drawing.Size(95, 20);
             this.startDateTimePicker.TabIndex = 6;
-            this.startDateTimePicker.Value = new System.DateTime(2018, 9, 26, 0, 0, 0, 0);
+            this.startDateTimePicker.Value = DateTime.Now.Date;
             this.startDateTimePicker.ValueChanged += new System.EventHandler(this.StartDateTimePicker_ValueChanged);
             // 
             // endDateTimePicker
@@ -117,7 +128,7 @@ namespace MessageFormattingApp {
             this.endDateTimePicker.Name = "endDateTimePicker";
             this.endDateTimePicker.Size = new System.Drawing.Size(92, 20);
             this.endDateTimePicker.TabIndex = 7;
-            this.endDateTimePicker.Value = new System.DateTime(2018, 9, 27, 0, 0, 0, 0);
+            this.endDateTimePicker.Value = DateTime.Now.Date.AddDays(1);
             this.endDateTimePicker.ValueChanged += new System.EventHandler(this.EndDateTimePicker_ValueChanged);
             // 
             // ANDConditionCheckBox

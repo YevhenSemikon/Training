@@ -11,8 +11,8 @@ namespace MobilePhone.MobileComponents.Battery {
         private ICharge vBatteryCharger;
         private bool vCharge;
         private BatteryChargeLevel vBatteryChargeLevel;
-        internal CancellationTokenSource cancelChargeToken = new CancellationTokenSource();
-        internal CancellationTokenSource cancelDisChargeToken = new CancellationTokenSource();
+        public CancellationTokenSource cancelChargeToken = new CancellationTokenSource();
+        public CancellationTokenSource cancelDisChargeToken = new CancellationTokenSource();
         public BatteryBase() {
             Capacity = 800;
             BatteryChargeCoef = 1;

@@ -11,8 +11,9 @@ namespace MessageFormattingApp {
         public SMSProviderThread() : base() { }
         public void Start(Storage storage, CancellationToken token) {
             Thread messageGenerator = new Thread(() => CreateMessages(storage, token));
-            messageGenerator.Name = "mesage";
+            messageGenerator.Name = "Message Ganerator";
             messageGenerator.Start();
+            vMessageGeneratorThread = messageGenerator;
         }
     }
 }

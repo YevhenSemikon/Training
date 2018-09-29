@@ -14,7 +14,7 @@ namespace UnitTestMobilePhone {
             mobile.ChargerComponent = new iPhoneCharger();
             TimeSpan executionTime = new TimeSpan();
             DateTime time = DateTime.Now;
-            while (mobile.Battery.ChargeLevel.vChargingThread.IsAlive == true) {
+            while (mobile.Battery.ChargeLevel.vChargingThread.IsAlive) {
                 executionTime = DateTime.Now - time;
                 if (executionTime.Seconds > 10) {
                     throw new StackOverflowException("Time of execution is too high: " + executionTime);
@@ -29,7 +29,7 @@ namespace UnitTestMobilePhone {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone(new BatteryChargeLevelThread(1));
             TimeSpan executionTime = new TimeSpan();
             DateTime time = DateTime.Now;
-            while (mobile.Battery.ChargeLevel.vDisChargingThread.IsAlive == true) {
+            while (mobile.Battery.ChargeLevel.vDisChargingThread.IsAlive) {
                 executionTime = DateTime.Now - time;
                 if (executionTime.Seconds > 10) {
                     throw new StackOverflowException("Time of execution is too high: " + executionTime);

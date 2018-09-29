@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace MobilePhone.MobileComponents.Battery {
     public abstract class BatteryChargeLevel {
-        internal Thread vChargingThread;
-        internal Thread vDisChargingThread;
-        internal Task vChargingTask;
-        internal Task vDisChargingTask;
+        public Thread vChargingThread;
+        public Thread vDisChargingThread;
+        public Task vChargingTask;
+        public Task vDisChargingTask;
         public delegate void ChargeLevelChange(int currentChargeLevel);
         public event ChargeLevelChange OnChargingLevelChange;
         internal BatteryChargeLevel(int currentChargeLevel) {

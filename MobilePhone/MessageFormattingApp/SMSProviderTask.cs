@@ -10,7 +10,8 @@ namespace MessageFormattingApp {
     internal class SMSProviderTask : SMSProvider {
         public SMSProviderTask():base() { }
         public void Start(Storage storage,CancellationToken token) {
-            Task messageGenerator = Task.Factory.StartNew(() => CreateMessages(storage,token));            
+            Task messageGenerator = Task.Factory.StartNew(() => CreateMessages(storage,token));
+            vMessageGeneratorTask = messageGenerator;           
         }
     }
 }
