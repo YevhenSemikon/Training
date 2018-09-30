@@ -13,7 +13,7 @@ namespace UnitTestMobilePhone
         public void AddMessageToStorage()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.Storage.MessageAdd += CheckMessage;
+            mobile.Storage.OnMessageAdd += CheckMessage;
             mobile.Storage.AddMessage(new Message("Bob", "Hi, it's Bob!", DateTime.Now));
             var expectedMessageText = "Hi, it's Bob!";
             Assert.IsTrue(actualMessages.FindAll(t=>t.Text==expectedMessageText).Count==1);
@@ -23,8 +23,8 @@ namespace UnitTestMobilePhone
         public void RemoveMessageFromStorage()
         {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            mobile.Storage.MessageAdd += CheckMessage;
-            mobile.Storage.MessageRemove += CheckMessage;
+            mobile.Storage.OnMessageAdd += CheckMessage;
+            mobile.Storage.OnMessageRemove += CheckMessage;
             var checkedMessage = new Message("Bob", "Hi, it's Bob!", DateTime.Now);
             mobile.Storage.AddMessage(checkedMessage);
             mobile.Storage.AddMessage(new Message("Adam", "Hi, it's Adam!", DateTime.Now));          

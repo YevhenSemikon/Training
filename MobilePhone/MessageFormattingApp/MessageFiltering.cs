@@ -1,4 +1,5 @@
 ﻿using MobilePhone;
+using MobilePhone.CommonUtilities;
 using MobilePhone.MobileComponents.Battery;
 using MobilePhone.MobileComponents.Charger;
 using System;
@@ -16,13 +17,14 @@ using Message = MobilePhone.Message;
 namespace MessageFormattingApp {
 
     public partial class MessageFiltering : Form {
-        Storage.FormatDelegate Formatter = Storage.NoneFormat;
+        MessageAction.FormatDelegate Formatter = MessageAction.NoneFormat;
         private int disabledItemIndex = -1;
         private int selectedIndex = 0;
+        private string previousMessageStartButton = "Start Message Creation";
         Font myFont = new Font("Aerial", 10, FontStyle.Regular | FontStyle.Italic);
         HashSet<string> users;
         SimCorpMobilePhone mobile;
-        SMSProvider smsProvider;
+        Provider Provider;
         ICharge phoneCharger;
         ICharge noCharger;
 
@@ -31,14 +33,15 @@ namespace MessageFormattingApp {
             this.FormattingListComboBox.DrawMode = DrawMode.OwnerDrawFixed;
             this.FormattingListComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.FormattingListComboBox_DrawItem);
             mobile = new SimCorpMobilePhone(new BatteryChargeLevelTask());
-            smsProvider = new SMSProviderTask();
+            Provider = new ProviderTask();
             phoneCharger = new iPhoneCharger();
             noCharger = new NullCharger();
             users = new HashSet<string>() { "None" };
             mobile.ChargerComponent = noCharger;
-            mobile.Storage.MessageAdd += ShowMessage;
+            mobile.Storage.OnMessageAdd += ShowMessage;
             mobile.Battery.ChargeLevel.OnChargingLevelChange += UpdateProgressBar;
             ChargingBar.Value = mobile.Battery.ChargeLevel.CurrentChargeLevel;
+            Provider.StartCallsCreation(mobile.Storage);
         }
 
         public void ShowMessage(List<MobilePhone.Message> messages) {
@@ -51,9 +54,8 @@ namespace MessageFormattingApp {
                 }
             }
             else {
-                List<Message> filteredMessages = messages;
+                List<Message> filteredMessages = messages;                
                 MessageListView.Items.Clear();
-
                 //Conditions
                 string selectedUser = userFilterComboBox.SelectedItem?.ToString();
                 DateTime selectedStartDate = startDateTimePicker.Value;
@@ -68,7 +70,7 @@ namespace MessageFormattingApp {
                 else { ANDConditionCheckBox.Visible = true; }
 
                 //Filter Messages by user input conditions
-                filteredMessages = mobile.Storage.FilterMessage(filteredMessages, selectedUser,
+                filteredMessages = MessageAction.FilterMessage(filteredMessages, selectedUser,
                    selectedStartDate, selectedEndDate, selectedText, ANDCondition);
 
                 //Display messages
@@ -95,14 +97,43 @@ namespace MessageFormattingApp {
             }
         }
 
+        public void ShowCalls(List<List<MobilePhone.Call>> groupCallsList)
+        {
+            callsTree.BeginUpdate();
+            List<List<Call>> GroupCalls = new List<List<Call>>();            
+                GroupCalls.AddRange(groupCallsList);
+            callsTree.Nodes.Clear();
+            foreach (List<Call> callsList in GroupCalls)
+            {
+                string selectedUser = userFilterComboBox.SelectedItem?.ToString();
+                DateTime selectedStartDate = startDateTimePicker.Value;
+                 DateTime selectedEndDate = endDateTimePicker.Value;
+                string selectedText = messageFilterTextBox.Text;
+                bool ANDCondition = ANDConditionCheckBox.Checked;
+                List<Call> filteredCalls = CallAction.FilterCalls(callsList, selectedUser,
+                    selectedStartDate, selectedEndDate, selectedText, ANDCondition);
+                if (filteredCalls.Count != 0)
+                {
+                    var mainNode = callsTree.Nodes.Add(filteredCalls[0].CallContact.Name + " " + filteredCalls[0].CallContact.LastName + " (" +
+                        filteredCalls.Count + ")");
+                    foreach (Call calls in filteredCalls)
+                    {
+                        mainNode.Nodes.Add(calls.Direction + " " + calls.CallContact.Name + " " + calls.CallContact.ContactPhoneNumber + " " +
+                            calls.ReceivingCallTime);
+                    }
+                }
+            }
+            callsTree.EndUpdate();
+        }
+
         private void FormattingListComboBox_SelectedIndexChanged(object sender, EventArgs e) {
             disabledItemIndex = FormattingListComboBox.SelectedIndex;
             string itemName = FormattingListComboBox.SelectedItem.ToString();
-            if (itemName == "None") { Formatter = Storage.NoneFormat; }
-            else if (itemName == "Start with Date") { Formatter = Storage.StartWithDate; }
-            else if (itemName == "End with Date") { Formatter = Storage.EndWithDate; }
-            else if (itemName == "UpperCase") { Formatter = Storage.UpperFormat; }
-            else if (itemName == "LowerCase") { Formatter = Storage.LowerFormat; }
+            if (itemName == "None") { Formatter = MessageAction.NoneFormat; }
+            else if (itemName == "Start with Date") { Formatter = MessageAction.StartWithDate; }
+            else if (itemName == "End with Date") { Formatter = MessageAction.EndWithDate; }
+            else if (itemName == "UpperCase") { Formatter = MessageAction.UpperFormat; }
+            else if (itemName == "LowerCase") { Formatter = MessageAction.LowerFormat; }
             ShowMessage(mobile.Storage.MessagesList);
         }
 
@@ -119,42 +150,63 @@ namespace MessageFormattingApp {
 
         private void UserFilterComboBox_TextChanged(object sender, EventArgs e) {
             ShowMessage(mobile.Storage.MessagesList);
+            ShowCalls(mobile.Storage.GroupedCallsList);
         }
 
         private void MessageFilterTextBox_TextChanged(object sender, EventArgs e) {
             ShowMessage(mobile.Storage.MessagesList);
+            ShowCalls(mobile.Storage.GroupedCallsList);
         }
 
         private void ANDConditionCheckBox_CheckedChanged(object sender, EventArgs e) {
             ShowMessage(mobile.Storage.MessagesList);
+            ShowCalls(mobile.Storage.GroupedCallsList);
         }
 
         private void StartDateTimePicker_ValueChanged(object sender, EventArgs e) {
             ShowMessage(mobile.Storage.MessagesList);
+            ShowCalls(mobile.Storage.GroupedCallsList);
         }
 
         private void EndDateTimePicker_ValueChanged(object sender, EventArgs e) {
             ShowMessage(mobile.Storage.MessagesList);
+            ShowCalls(mobile.Storage.GroupedCallsList);
         }
 
-        private void StartMessageButton_Click(object sender, EventArgs e) {
-            if (StartMessageButton.Text == "Start Receiving") {
-                smsProvider.Start(mobile.Storage);
-                Thread.Sleep(100);
-                StartMessageButton.Text = "Stop Receiving";
+        private void StartMessageButton_Click(object sender, EventArgs e) {            
+            if (tabInfoControl.SelectedTab.Name == "CallsPage")
+            {
+                if (mobile.Storage.GroupedCallsList.Count == 0)
+                {
+                    MessageBox.Show("No Calls in the Mobile Storage, please try later");
+                }
+                 ShowCalls(mobile.Storage.GroupedCallsList);
             }
-            else {
-                smsProvider.Stop();
-                Thread.Sleep(100);
-                StartMessageButton.Text = "Start Receiving";
+            else
+            {
+                if (StartMessageButton.Text == "Start Message Creation")
+                {
+
+                    Provider.StartMessageCreation(mobile.Storage);
+                    Thread.Sleep(100);
+                    StartMessageButton.Text = "Stop Message Creation";
+                }
+                else
+                {              
+                    Provider.StopMessageCreation();
+                    Thread.Sleep(100);
+                    StartMessageButton.Text = "Start Message Creation";
+                }
+                previousMessageStartButton = StartMessageButton.Text;
             }
+
         }
 
         private void ChargeButton_Click(object sender, EventArgs e) {
             if (ChargeButton.Text == "Charge") {
                 mobile.ChargerComponent = phoneCharger; //Connect charger to phone
                 Thread.Sleep(100);
-                ChargeButton.Text = "Stop Charging";
+                ChargeButton.Text = "Stop Charge";
             }
             else {
                 mobile.ChargerComponent = noCharger; //Disconnect charger from phone
@@ -174,6 +226,22 @@ namespace MessageFormattingApp {
             }
             else {
                 ChargingBar.Value = value;
+            }
+        }
+
+        private void TabInfoControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabInfoControl.SelectedTab.Name == "CallsPage")
+            {
+                StartMessageButton.Text = "Get Calls";               
+                FormattingListComboBox.Enabled = false;
+                AutoScrollCheckBox.Visible = false;
+            }
+            else
+            {
+                StartMessageButton.Text = previousMessageStartButton;
+                FormattingListComboBox.Enabled = true;
+                AutoScrollCheckBox.Visible = true;
             }
         }
     }

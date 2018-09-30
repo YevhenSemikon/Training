@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Call.cs" />
+    <Compile Include="CommonUtilities\CallAction.cs" />
+    <Compile Include="CommonUtilities\CallComparer.cs" />
+    <Compile Include="CommonUtilities\Direction.cs" />
+    <Compile Include="CommonUtilities\MessageAction.cs" />
+    <Compile Include="Contact.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MobileComponents\AudioJack\iPhoneHeadset.cs" />
     <Compile Include="MobileComponents\AudioJack\IPlayBack.cs" />

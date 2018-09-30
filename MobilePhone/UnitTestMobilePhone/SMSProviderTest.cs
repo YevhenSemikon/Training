@@ -10,9 +10,9 @@ namespace UnitTestMobilePhone {
         [TestMethod]
         public void SMSProviderThreadTest() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider smsProvider = new SMSProviderThread();
-            smsProvider.Start(mobile.Storage);
-            smsProvider.Stop();
+            Provider smsProvider = new ProviderThread();
+            smsProvider.StartMessageCreation(mobile.Storage);
+            smsProvider.StopMessageCreation();
             Thread.Sleep(1000); // May get in pause of 1000 millisec between message creation
             Assert.IsTrue(!smsProvider.messageThreadGenerator.IsAlive);
         }
@@ -20,9 +20,9 @@ namespace UnitTestMobilePhone {
         [TestMethod]
         public void SMSProviderTaskTest() {
             SimCorpMobilePhone mobile = new SimCorpMobilePhone();
-            SMSProvider smsProvider = new SMSProviderTask();
-            smsProvider.Start(mobile.Storage);
-            smsProvider.Stop();
+            Provider smsProvider = new ProviderTask();
+            smsProvider.StartMessageCreation(mobile.Storage);
+            smsProvider.StopMessageCreation();
             Thread.Sleep(1000); // May get in pause of 1000 millisec between message creation
             Console.WriteLine(smsProvider.messageTaskGenerator.Status);
             Assert.IsTrue(smsProvider.messageTaskGenerator.IsCompleted);
