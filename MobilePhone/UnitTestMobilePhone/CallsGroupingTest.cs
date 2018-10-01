@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace UnitTestMobilePhone {
     [TestClass]
-    public class CallsGroupingTest {        
+    public class CallsGroupingTest {
         [TestMethod]
 
         // Group calls by Direction and Phone Number
@@ -24,15 +24,15 @@ namespace UnitTestMobilePhone {
 
             //1st Group
             HashSet<Call> actualGroupCallsOne = new HashSet<Call>() {
-                   callThree,            
-                    callTwo,
-                    callOne
+                   callThree,
+                   callTwo,
+                   callOne
             };
 
             //2nd Group
             HashSet<Call> actualGroupCallsTwo = new HashSet<Call>() {
                 callFive,
-                callFour              
+                callFour
             };
 
             //Main program
@@ -45,7 +45,6 @@ namespace UnitTestMobilePhone {
             //Groups also must be sorted by desc order according to Max time of last call in list: 2nd Group, 1st Group
             Assert.IsTrue(actualGroupCallsTwo.SetEquals(storage.GroupedCallsList[0]) &&
                           actualGroupCallsOne.SetEquals(storage.GroupedCallsList[1]));
-
         }
     }
 }
