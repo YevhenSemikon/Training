@@ -12,7 +12,7 @@ namespace MobilePhone.CommonUtilities {
                 return GroupedCallsList;
             };
             List<Call> lastCalls = GroupedCallsList.First();
-            Call lastCall = lastCalls.Last();
+            Call lastCall = lastCalls.First();
             if (call.Equals(lastCall)) {
                 lastCalls.Add(call);
                 lastCalls.Sort(new CallComparer());
