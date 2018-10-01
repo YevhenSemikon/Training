@@ -69,6 +69,7 @@ namespace MessageFormattingApp {
                 //Enable or Disable ANDCondition checkBox if more than 1 condition specified
                 if ((selectedUser == "None" || string.IsNullOrEmpty(selectedUser)) && string.IsNullOrEmpty(selectedText)) {
                     ANDConditionMessageCheckBox.Visible = false;
+                    ANDConditionMessageCheckBox.Checked = false;
                 }
                 else { ANDConditionMessageCheckBox.Visible = true; }
 
@@ -105,7 +106,6 @@ namespace MessageFormattingApp {
             List<List<Call>> GroupCalls = new List<List<Call>>();
             GroupCalls.AddRange(groupCallsList);
             callsTree.Nodes.Clear();
-
             foreach (List<Call> callsList in GroupCalls) {
                 string selectedPhone = PhoneFilterCallsComboBox.SelectedItem?.ToString();
                 DateTime selectedStartDate = StartCallsDateTimePicker.Value;
@@ -113,8 +113,21 @@ namespace MessageFormattingApp {
                 string selectedName = FilterCallsTextBox.Text;
                 bool ANDCondition = ANDConditionCallCheckBox.Checked;
                 Direction directionCallCondition = (Direction)DirectionCallFilterComboBox.SelectedIndex;
+
+                //Enable or Disable ANDCondition checkBox if more than 1 condition specified
+                if ((directionCallCondition == Direction.None || directionCallCondition == Direction.NoSpecified)
+                    && (selectedPhone == "None" || string.IsNullOrEmpty(selectedPhone))
+                    && string.IsNullOrEmpty(selectedName)) {
+                    ANDConditionCallCheckBox.Visible = false;
+                    ANDConditionCallCheckBox.Checked = false;
+                }
+                else { ANDConditionCallCheckBox.Visible = true; }
+
+                //Filter Calls by user input conditions
                 List<Call> filteredCalls = CallAction.FilterCalls(callsList, selectedPhone,
                     selectedStartDate, selectedEndDate, selectedName, ANDCondition, directionCallCondition);
+
+                //Display calls
                 if (filteredCalls.Count != 0) {
 
                     var mainNode = callsTree.Nodes.Add($"{filteredCalls[0].CallContact.Name} {filteredCalls[0].CallContact.LastName} ({filteredCalls.Count})");

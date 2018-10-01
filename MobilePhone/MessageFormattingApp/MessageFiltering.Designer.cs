@@ -126,7 +126,7 @@ namespace MessageFormattingApp {
             this.startMessageDateTimePicker.Name = "startMessageDateTimePicker";
             this.startMessageDateTimePicker.Size = new System.Drawing.Size(95, 20);
             this.startMessageDateTimePicker.TabIndex = 6;
-            this.startMessageDateTimePicker.Value = new System.DateTime(2018, 10, 1, 0, 0, 0, 0);
+            this.startMessageDateTimePicker.Value = DateTime.Now.Date;
             this.startMessageDateTimePicker.ValueChanged += new System.EventHandler(this.StartMessageDateTimePicker_ValueChanged);
             // 
             // endMessageDateTimePicker
@@ -136,7 +136,7 @@ namespace MessageFormattingApp {
             this.endMessageDateTimePicker.Name = "endMessageDateTimePicker";
             this.endMessageDateTimePicker.Size = new System.Drawing.Size(92, 20);
             this.endMessageDateTimePicker.TabIndex = 7;
-            this.endMessageDateTimePicker.Value = new System.DateTime(2018, 10, 1, 23, 59, 59, 0);
+            this.endMessageDateTimePicker.Value = DateTime.Now.Date.AddSeconds(-1);
             this.endMessageDateTimePicker.ValueChanged += new System.EventHandler(this.EndMessageDateTimePicker_ValueChanged);
             // 
             // ANDConditionMessageCheckBox
@@ -255,6 +255,7 @@ namespace MessageFormattingApp {
             this.ANDConditionCallCheckBox.Size = new System.Drawing.Size(96, 17);
             this.ANDConditionCallCheckBox.TabIndex = 19;
             this.ANDConditionCallCheckBox.Text = "AND Condition";
+            this.ANDConditionCallCheckBox.Visible = false;
             this.ANDConditionCallCheckBox.UseVisualStyleBackColor = true;
             this.ANDConditionCallCheckBox.CheckedChanged += new System.EventHandler(this.ANDConditionCallCheckBox_CheckedChanged);
             // 
@@ -275,7 +276,7 @@ namespace MessageFormattingApp {
             this.EndCallsDateTimePicker.Name = "EndCallsDateTimePicker";
             this.EndCallsDateTimePicker.Size = new System.Drawing.Size(92, 20);
             this.EndCallsDateTimePicker.TabIndex = 18;
-            this.EndCallsDateTimePicker.Value = new System.DateTime(2018, 10, 1, 23, 59, 59, 0);
+            this.EndCallsDateTimePicker.Value = DateTime.Now.Date.AddSeconds(-1);
             this.EndCallsDateTimePicker.ValueChanged += new System.EventHandler(this.EndCallsDateTimePicker_ValueChanged);
             // 
             // StartCallsDateTimePicker
@@ -285,7 +286,7 @@ namespace MessageFormattingApp {
             this.StartCallsDateTimePicker.Name = "StartCallsDateTimePicker";
             this.StartCallsDateTimePicker.Size = new System.Drawing.Size(95, 20);
             this.StartCallsDateTimePicker.TabIndex = 17;
-            this.StartCallsDateTimePicker.Value = new System.DateTime(2018, 10, 1, 0, 0, 0, 0);
+            this.StartCallsDateTimePicker.Value = DateTime.Now.Date;
             this.StartCallsDateTimePicker.ValueChanged += new System.EventHandler(this.StartCallsDateTimePicker_ValueChanged);
             // 
             // FilterCallsTextBox
