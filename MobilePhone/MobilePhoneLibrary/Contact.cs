@@ -5,19 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MobilePhone
-{
-    public class Contact
-    {
-        public Contact()
-        {
+namespace MobilePhone {
+    public class Contact {
+        public Contact() {
             Name = "Adam";
             LastName = "Bush";
             Age = 23;
-            ContactPhoneNumber = "+380931234567";
+            ContactPhoneNumber = "+380931234570";
         }
-        public Contact(string name,string lastName, int age, string contactphoneNumber)
-        {
+        public Contact(string name, string lastName, int age, string contactphoneNumber) {
             Name = name;
             LastName = lastName;
             Age = age;

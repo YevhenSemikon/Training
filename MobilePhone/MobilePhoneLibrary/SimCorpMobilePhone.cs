@@ -8,7 +8,7 @@ using MobilePhone.MobileComponents.Charger;
 namespace MobilePhone {
     public class SimCorpMobilePhone : MobilePhone {
         public SimCorpMobilePhone(BatteryChargeLevel batteryChargeLevel) : base(batteryChargeLevel) {
-            Storage = new Storage();
+            Storage = new Storage(addCall: true);
             Screen.ScreenDiagonal = 5.5;
             Microphone.Sensitivity = 70;
             Battery.Capacity = 1000;
@@ -16,7 +16,7 @@ namespace MobilePhone {
             SimCard.FormFactor = "MicroSim";
         }
         public SimCorpMobilePhone() {
-            Storage = new Storage();
+            Storage = new Storage(addCall: true);
             Screen.ScreenDiagonal = 5.5;
             Microphone.Sensitivity = 70;
             Battery.Capacity = 1000;

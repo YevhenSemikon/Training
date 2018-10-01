@@ -16,7 +16,7 @@ namespace MobilePhone.MobileComponents.Battery {
         }
         public override void StartDisCharging(BatteryBase battery, CancellationToken token) {
             Task DisChargingTask = Task.Factory.StartNew(() => DisCharging(battery, token));
-            vDisChargingTask = DisChargingTask;            
+            vDisChargingTask = DisChargingTask;
         }
     }
 }

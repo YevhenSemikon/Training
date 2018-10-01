@@ -62,10 +62,8 @@ namespace MessageFormattingApp {
             }
         }
 
-        public static void CreateCalls(Storage storage,CancellationToken token)
-        {
-            for (int i = 0; i < callsNumber; i++)
-            {
+        public static void CreateCalls(Storage storage, CancellationToken token) {
+            for (int i = 0; i < callsNumber; i++) {
                 List<Call> calls = new List<Call>
                 {
                     new Call(Direction.Incoming, DateTime.Now, new Contact("Jane", "Spring", 20, "+380931234567"))
@@ -82,8 +80,8 @@ namespace MessageFormattingApp {
                 calls.Add(new Call(Direction.Incoming, DateTime.Now, new Contact("Dart", "Spring", 21, "+380931234569")));
                 Thread.Sleep(pause);
                 foreach (Call call in calls) {
-                  if (token.IsCancellationRequested) { return; }                  
-                  storage.AddCall(call);
+                    if (token.IsCancellationRequested) { return; }
+                    storage.AddCall(call);
                 }
             }
         }

@@ -62,6 +62,8 @@
     <Compile Include="ChargeThreadTest.cs" />
     <Compile Include="ChargeTaskTest.cs" />
     <Compile Include="SMSProviderTest.cs" />
+    <Compile Include="CallComparerTest.cs" />
+    <Compile Include="CallsGroupingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MessageFormattingApp\MessageFiltering.csproj">

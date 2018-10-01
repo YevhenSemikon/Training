@@ -17,13 +17,11 @@ namespace MessageFormattingApp {
             cancelMessageToken.Cancel();
             Thread.Sleep(200);
         }
-        public override void StartCallsCreation(Storage storage)
-        {
+        public override void StartCallsCreation(Storage storage) {
             cancelCallToken = new CancellationTokenSource();
             callTaskGenerator = Task.Factory.StartNew(() => CreateCalls(storage, cancelCallToken.Token));
         }
-        public override void StopCallsCreation()
-        {
+        public override void StopCallsCreation() {
             cancelCallToken.Cancel();
             Thread.Sleep(200);
         }

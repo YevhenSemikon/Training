@@ -11,8 +11,7 @@ namespace MessageFormattingApp {
         public ProviderThread() : base() { }
         public override void StartMessageCreation(Storage storage) {
             cancelMessageToken = new CancellationTokenSource();
-            messageThreadGenerator = new Thread(() => CreateMessages(storage, cancelMessageToken.Token))
-            {
+            messageThreadGenerator = new Thread(() => CreateMessages(storage, cancelMessageToken.Token)) {
                 Name = "Message Generator"
             };
             messageThreadGenerator.Start();
