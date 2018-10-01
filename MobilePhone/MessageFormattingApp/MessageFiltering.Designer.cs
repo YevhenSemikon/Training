@@ -136,7 +136,7 @@ namespace MessageFormattingApp {
             this.endMessageDateTimePicker.Name = "endMessageDateTimePicker";
             this.endMessageDateTimePicker.Size = new System.Drawing.Size(92, 20);
             this.endMessageDateTimePicker.TabIndex = 7;
-            this.endMessageDateTimePicker.Value = DateTime.Now.Date.AddSeconds(-1);
+            this.endMessageDateTimePicker.Value = DateTime.Now.Date.AddDays(1).AddSeconds(-1);
             this.endMessageDateTimePicker.ValueChanged += new System.EventHandler(this.EndMessageDateTimePicker_ValueChanged);
             // 
             // ANDConditionMessageCheckBox
@@ -276,7 +276,7 @@ namespace MessageFormattingApp {
             this.EndCallsDateTimePicker.Name = "EndCallsDateTimePicker";
             this.EndCallsDateTimePicker.Size = new System.Drawing.Size(92, 20);
             this.EndCallsDateTimePicker.TabIndex = 18;
-            this.EndCallsDateTimePicker.Value = DateTime.Now.Date.AddSeconds(-1);
+            this.EndCallsDateTimePicker.Value = DateTime.Now.Date.AddDays(1).AddSeconds(-1);
             this.EndCallsDateTimePicker.ValueChanged += new System.EventHandler(this.EndCallsDateTimePicker_ValueChanged);
             // 
             // StartCallsDateTimePicker
